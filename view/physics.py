@@ -1,4 +1,4 @@
-from model import characters
+from model import monsters
 from controller import fight
 from view import dungeon_creator, screen, images
 
@@ -214,7 +214,7 @@ class PointOfView:
             self.current_y += y1
             self.current_x += x1
             if self.current_dungeon[self.current_y][self.current_x] == self.x_marks_the_spot:
-                fight.fight_a_monster(self.our_hero, characters.Dragon(), self)
+                fight.fight_a_monster(self.our_hero, monsters.Monster(monsters.red_dragon), self)
             return "You move one space " + self.get_direction() + "."
         else:
             return "You can't walk through walls!"

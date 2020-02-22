@@ -6,7 +6,12 @@ from controller import town
 
 # TODO: Add Dropping Items from Monsters
 # TODO: Add Leveling Up
-# TODO: Fix all the broken 'views'
+# TODO: Fix all the broken dungeon images
+# TODO: Add doorways and rooms
+# TODO: Add traps
+# TODO: Add "guardians" that guard staircases going up and down
+# TODO: Move to web-based, so we can be more dynamic images than ascii art
+# TODO: Fix broken dragon.
 
 
 # Main function that starts the game.

@@ -168,6 +168,7 @@ giant_rat = {
 red_dragon = {
     "name": "Red Dragon",
     "type": "monster",
+    "level" : 99,
     "image": images.dragon,
     "hit_points": random.randint(1000, 1000),
     "gold": random.randint(500, 2000),
