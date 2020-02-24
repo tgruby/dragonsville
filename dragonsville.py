@@ -9,7 +9,7 @@ from controller import town
 # TODO: Add Leveling up for characters
 # TODO: Allow to create multiple characters
 # TODO: Allow for multiple monster attacks at the same time
-# TODO: Move Monsters and Characters to individual external files including level guides to allow for independent creation and loading
+# TODO: Move Monsters+ to individual external files including level guides to allow for independent creation and loading
 # TODO: Fix all the broken dungeon images
 # TODO: Add doorways and rooms
 # TODO: Add traps
