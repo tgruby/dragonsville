@@ -210,7 +210,10 @@ class PointOfView:
         x1 = self.mid_center_block[self.current_direction]['x']
         y1 = self.mid_center_block[self.current_direction]['y']
         value = self.current_dungeon[self.current_y + y1][self.current_x + x1]
-        if value == self.hallway_1 or value == self.ladder_up or value == self.ladder_down or value == self.x_marks_the_spot:
+        if value == self.hallway_1 or \
+                value == self.ladder_up or \
+                value == self.ladder_down or \
+                value == self.x_marks_the_spot:
             self.current_y += y1
             self.current_x += x1
             if self.current_dungeon[self.current_y][self.current_x] == self.x_marks_the_spot:

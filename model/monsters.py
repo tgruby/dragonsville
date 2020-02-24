@@ -38,6 +38,17 @@ class Monster:
         return self.hit_points > 0
 
 
+# This Function is to decide which monster to spawn in a given dungeon.
+def get_a_monster_for_dungeon(dungeon_id):
+    monsters = []
+    for index in range(dungeon_id + 1):
+        for m in all_monsters[index]:
+            monsters.append(m)
+    monster_id = random.randint(0, len(monsters) - 1)
+    monster = Monster(monsters[monster_id])
+    return monster
+
+
 # Dictionaries of all Monsters in the Game
 angry_gnome = {
     "name": "Angry Gnome",
@@ -168,7 +179,7 @@ giant_rat = {
 red_dragon = {
     "name": "Red Dragon",
     "type": "monster",
-    "level" : 99,
+    "level": 99,
     "image": images.dragon,
     "hit_points": random.randint(1000, 1000),
     "gold": random.randint(500, 2000),
@@ -207,14 +218,3 @@ all_monsters = [
     dungeon_2,
     dungeon_3
 ]
-
-
-# This Function is to decide which monster to spawn in a given dungeon.
-def get_a_monster_for_dungeon(dungeon_id):
-    monsters = []
-    for index in range(dungeon_id + 1):
-        for m in all_monsters[index]:
-            monsters.append(m)
-    monster_id = random.randint(0, len(monsters)-1)
-    monster = Monster(monsters[monster_id])
-    return monster

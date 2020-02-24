@@ -1,5 +1,6 @@
 import os
 import pickle
+import glob
 
 # These borders are used throughout the game
 border = "<=================================<>=================================>"
@@ -47,7 +48,7 @@ def save(name, my_object):
         pickle.dump(my_object, save_file)
 
 
-# This helper function is to save our hero to a "pickle" file, python's standard way to save objects to a file.
+# This helper function is to save an object to a "pickle" file, python's standard way to save objects to a file.
 def load(name):
     try:
         # Open a File
@@ -97,3 +98,4 @@ def front_padding(text, length):
 # For example: 'food' -> 'food      '
 def back_padding(text, length):
     return text + padding(text, length)
+

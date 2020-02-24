@@ -1,21 +1,31 @@
 import common
+import logging
 from view import images
 from model import characters
 from controller import town
 
 
 # TODO: Add Dropping Items from Monsters
-# TODO: Add Leveling Up
+# TODO: Add Leveling up for characters
+# TODO: Allow to create multiple characters
+# TODO: Allow for multiple monster attacks at the same time
+# TODO: Move Monsters and Characters to individual external files including level guides to allow for independent creation and loading
 # TODO: Fix all the broken dungeon images
 # TODO: Add doorways and rooms
 # TODO: Add traps
 # TODO: Add "guardians" that guard staircases going up and down
 # TODO: Move to web-based, so we can be more dynamic images than ascii art
-# TODO: Fix broken dragon.
 
 
 # Main function that starts the game.
 def main():
+    # Setup logging
+    logger = logging.getLogger('dragonsville')
+    hdlr = logging.FileHandler('dragonsville.log')
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    hdlr.setFormatter(formatter)
+    logger.addHandler(hdlr)
+    logger.setLevel(logging.DEBUG)
 
     common.clear_screen()
     print(images.game_title)
