@@ -1,5 +1,6 @@
 import sys
 import common
+import random
 from view import screen, images
 
 fight_commands = "(F)ight, (R)un away!"
@@ -31,9 +32,14 @@ def fight_a_monster(our_hero, monster, view):
                     message = message + '\n ' + "You have been Slain! Better luck in your next life!"
                     hero_is_slain(our_hero, view, message)
             else:
+                # monster is dead
                 # Grab Gold from now dead monster
                 our_hero.gold += monster.gold
                 right_center_pane = images.treasure_chest
+                drop_weapon = random.randint(0, 3)
+                if drop_weapon == 0:
+                    our_hero.inventory.append(monster.weapon)
+                    message = message + " The monster has dropped " + monster.weapon["name"] + "!"
                 message = message + " Digging through the %s remains you found %d gold!" % (monster.name, monster.gold)
                 commands = "Press Enter to continue..."
                 if monster.name == "Red Dragon":
