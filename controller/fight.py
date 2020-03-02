@@ -32,10 +32,11 @@ def fight_a_monster(our_hero, monster, view):
                     message = message + '\n ' + "You have been Slain! Better luck in your next life!"
                     hero_is_slain(our_hero, view, message)
             else:
-                # monster is dead
-                # Grab Gold from now dead monster
+                # Monster has been killed
+                # Grab Gold
                 our_hero.gold += monster.gold
                 right_center_pane = images.treasure_chest
+                # Check to see if the monster drops it's weapon. If so, put it in the hero's inventory.
                 drop_weapon = random.randint(0, 3)
                 if drop_weapon == 0:
                     our_hero.inventory.append(monster.weapon)
