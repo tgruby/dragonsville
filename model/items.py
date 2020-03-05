@@ -28,6 +28,22 @@ chain_mail_armor = {
     "cost": 100
 }
 
+bony_fingers = {
+    "type": "weapon",
+    "name": "Bony Fingers",
+    "damage": 6,
+    "cost": 0,
+    "attack_message": "%s wraps it's fingers around your throat squeezing and doing %d damage!"
+}
+
+gnome_feet = {
+    "type": "weapon",
+    "name": "Gnome Foot",
+    "damage": 4,
+    "cost": 0,
+    "attack_message": "%s kicks at you doing %d damage!"
+}
+
 fists_and_feet = {
     "type": "weapon",
     "name": "Fists and Feet",
@@ -36,26 +52,50 @@ fists_and_feet = {
     "attack_message": "%s slaps and kicks doing %d damage!"
 }
 
-pincers = {
+ant_pincers = {
     "type": "weapon",
-    "name": "Pincers",
+    "name": "Ant Pincers",
     "damage": 4,
     "cost": 0,
     "attack_message": "%s bites and saws with its pincers doing %d damage!"
 }
 
-fangs = {
+spider_fangs = {
     "type": "weapon",
-    "name": "Fangs",
+    "name": "Spider Fangs",
     "damage": 12,
     "cost": 0,
     "attack_message": "%s sinks it's fangs into you doing %d damage!"
 }
 
-teeth = {
+bat_fangs = {
     "type": "weapon",
-    "name": "Teeth",
+    "name": "Bat Fangs",
+    "damage": 8,
+    "cost": 0,
+    "attack_message": "%s sinks it's fangs into you doing %d damage!"
+}
+
+rat_teeth = {
+    "type": "weapon",
+    "name": "Rat Teeth",
+    "damage": 5,
+    "cost": 0,
+    "attack_message": "%s sinks it's teeth into you doing %d damage!"
+}
+
+wolf_teeth = {
+    "type": "weapon",
+    "name": "Wolf Teeth",
     "damage": 15,
+    "cost": 0,
+    "attack_message": "%s sinks it's teeth into you doing %d damage!"
+}
+
+badger_teeth = {
+    "type": "weapon",
+    "name": "Badger Teeth",
+    "damage": 12,
     "cost": 0,
     "attack_message": "%s sinks it's teeth into you doing %d damage!"
 }
@@ -68,17 +108,17 @@ fireball = {
     "attack_message": "%s rears back and vomits a molten fireball at your head burning you for %d damage!"
 }
 
-stingers = {
+bee_stinger = {
     "type": "weapon",
-    "name": "Stingers",
-    "damage": 12,
+    "name": "Bee Stinger",
+    "damage": 10,
     "cost": 0,
-    "attack_message": "%s dive and sting you with their stingers dealing %d damage!"
+    "attack_message": "%s dive and stab you with their stingers dealing %d damage!"
 }
 
-scream = {
+banshee_scream = {
     "type": "weapon",
-    "name": "Scream",
+    "name": "Banshee Vocal Cords",
     "damage": 25,
     "cost": 0,
     "attack_message": "%s opens it's mouth and screams... the sound chills you to the bone and rips at your " 

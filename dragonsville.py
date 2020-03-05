@@ -20,12 +20,12 @@ from controller import town
 # Main function that starts the game.
 def main():
     # Setup logging
-    logger = logging.getLogger('dragonsville')
-    hdlr = logging.FileHandler('dragonsville.log')
+    log = logging.getLogger('dragonsville')
+    handler = logging.FileHandler('dragonsville.log')
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    hdlr.setFormatter(formatter)
-    logger.addHandler(hdlr)
-    logger.setLevel(logging.DEBUG)
+    handler.setFormatter(formatter)
+    log.addHandler(handler)
+    log.setLevel(logging.DEBUG)
 
     common.clear_screen()
     print(images.game_title)
@@ -41,6 +41,7 @@ def main():
 
     our_hero = common.load_hero()
 
+    log.info("Finished Loading Splash Screen")
     if our_hero is None:
         name = input("What can we call you, hero? ")
         our_hero = characters.Character(characters.warrior)

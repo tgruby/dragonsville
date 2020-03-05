@@ -1,9 +1,10 @@
 import os
 import pickle
-import glob
+from view import screen
 
 # These borders are used throughout the game
 border = "<=================================<>=================================>"
+medium_border = "<=====================<>====================>"
 short_border = "<========<>========>"
 
 
@@ -71,7 +72,8 @@ def get_stats(view, our_hero):
     if not our_hero.is_alive():
         return "*** YOU ARE DEAD ***"
     else:
-        response = "Health: %d, Gold: %d, Weapon: %s" % (our_hero.hit_points, our_hero.gold, our_hero.equipped_weapon["name"])
+        response = "Health: %d, Gold: %d, Weapon: %s" % (
+            our_hero.hit_points, our_hero.gold, our_hero.equipped_weapon["name"])
         if view:
             response += ", Facing: " + view.get_direction()
         return response
@@ -99,3 +101,23 @@ def front_padding(text, length):
 def back_padding(text, length):
     return text + padding(text, length)
 
+
+# List out the various healing that our hero can have
+def list_inventory(our_hero):
+    response = screen.border(our_hero.name + "'s Inventory", 43) + '\n'
+    response += "  Equipped Items:\n"
+    response += "    Weapon..... %s (%d)\n" % (our_hero.equipped_weapon['name'], our_hero.equipped_weapon['damage'])
+    if our_hero.equipped_armor is not None:
+        response += "    Armor...... %s (%d)\n" % (our_hero.equipped_armor['name'], our_hero.equipped_armor['damage'])
+    if our_hero.equipped_shield is not None:
+        response += "    Shield..... %s (%d)\n" % (our_hero.equipped_shield['name'], our_hero.equipped_shield['damage'])
+    response += medium_border + '\n'
+    response += "  Inventory Items:\n"
+
+    for i in our_hero.inventory:
+        response += "    " + i["name"]
+        if "hit_point_adjustment" in i:
+            response += "(" + i["hit_point_adjustment"] + ")"
+        response += '\n'
+    response += medium_border
+    return response

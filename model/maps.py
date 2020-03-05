@@ -1,28 +1,28 @@
 map_0 = {
     "number": 0,
     "type": "map",
-    "name": "Dungeon 0 Map",
+    "name": "Dungeon Map L0",
     "cost": 50
 }
 
 map_1 = {
     "number": 1,
     "type": "map",
-    "name": "Dungeon 1 Map",
+    "name": "Dungeon Map L1",
     "cost": 100
 }
 
 map_2 = {
     "number": 2,
     "type": "map",
-    "name": "Dungeon 2 Map",
+    "name": "Dungeon Map L2",
     "cost": 200
 }
 
 map_3 = {
     "number": 3,
     "type": "map",
-    "name": "Dungeon 3 Map",
+    "name": "Dungeon Map L3",
     "cost": 400
 }
 
