@@ -582,7 +582,7 @@ badger = \
                                   `>>> "
 
 treasure_chest = \
-r"                    _.--. \n\
+"                    _.--. \n\
                _.-'_:-'|| \n\
            _.-'_.-::::'|| \n\
       _.-:'_.-::::::'  || \n\
@@ -591,10 +591,10 @@ r"                    _.--. \n\
  ||   ||::::::'     _.;._'-._ \n\
  ||   ||:::::'  _.-!oo @.!-._'-. \n\
   \'.  ||:::::.-!()oo @!()@.-'_.| \n\
-   '.'-;|:.-'.&$@.& ()$%-'o.'\U|| \n\
+   '.'-;|:.-'.&$@.& ()$%-'o.'\ || \n\
      `>'-.!@%()@'@_%-'_.-o _.|'|| \n\
        ||-._'-.@.-'_.-' _.-o  |'|| \n\
-       ||=[ '-._.-\U/.-'    o |'|| \n\
+       ||=[ '-._.-\ /.-'    o |'|| \n\
        || '-.]=|| |'|      o  |'|| \n\
        ||      || |'|        _| '; \n\
        ||      || |'|    _.-'_.-' \n\
@@ -651,8 +651,30 @@ _____`--._ ''      . '---'``--._|:::::::|:::::::::::::::::::::::| \n\
 :'                 -- . ''          -- . ''  `--._----------`--._"
 
 # This section of the file contains all the views for the dungeons.  It's naming pattern as used by the generator is
-# as follows: 'dungeon_' Key: (Wall = W, Hallway = _, Ladder Up = U, Ladder Down = D, Monster = M) Order: closest
-# left block, closest right block, second closest left block, second closest right block... etc.
+# as follows: 'dungeon_' Key: (Wall = W, Hallway = H, Ladder Up = U, Ladder Down = D) Order: closest to the viewer
+# left block, middle block, right block, next closest left block, middle block, right block... etc.
+
+dungeon_all = \
+r"\   .----------.    / \n\
+ \ (  ||    ||  )  / \n\
+  \ `-||====||-'  /  \n\
+___\_____________/__ \n\
+   |\   ____   /|    \n\
+   | \ (____) / |    \n\
+___|__\______/__|___ \n\
+   |  |\(__)/|  |    \n\
+___|__|_\__/_|__|___ \n\
+   |  | |  | |  |    \n\
+___|__|_|__|_|__|___ \n\
+___|__|/(__)\|__|___ \n\
+   |  / ____ \  |    \n\
+   | / (____) \ |    \n\
+___|/__________\|___ \n\
+   /            \    \n\
+  / .-||----||-. \   \n\
+ / (  ||====||  ) \  \n\
+/   `----------'   \ "
+
 
 dungeon_WUW_WHW_WHW_H = \
 "\   .----------.   / \n\
@@ -848,7 +870,7 @@ dungeon_HHW_WHW_WHW_H = \
 "                   / \n\
                   / \n\
                  / \n\
-___             / \n\
+____            / \n\
    |\          /| \n\
    | \        / | \n\
    |  \      /  | \n\
@@ -1753,7 +1775,7 @@ dungeon_HHW_WHW_HHH_W = \
 "                   / \n\
                   / \n\
                  / \n\
-___            / \n\
+____           / \n\
    |\          /| \n\
    | \        / | \n\
    |  \      /  | \n\
@@ -2089,7 +2111,7 @@ dungeon_HHW_WHW_HHW_W = \
 "                   / \n\
                   / \n\
                  / \n\
-_____           / \n\
+____            / \n\
    |\          /| \n\
    | \        / | \n\
    |  \      /  | \n\

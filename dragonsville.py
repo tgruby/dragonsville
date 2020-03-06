@@ -14,7 +14,8 @@ from controller import town
 # TODO: Add traps
 # TODO: Add "guardians" that guard staircases going up and down
 # TODO: Move to web-based, so we can be more dynamic images than ascii art
-# TODO: Add
+# TODO: Add Alchemy Shop: exchange monster parts + gold for potions
+# TODO: equip other items.
 
 # Main function that starts the game.
 def main():

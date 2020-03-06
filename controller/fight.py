@@ -18,6 +18,7 @@ def fight_a_monster(our_hero, monster, view):
     while not is_attack_finished:
         screen.paint(
             common.get_stats(view, our_hero),
+
             commands,
             message,
             view.generate_perspective(),
