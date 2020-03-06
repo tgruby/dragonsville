@@ -114,10 +114,17 @@ def list_inventory(our_hero):
     response += medium_border + '\n'
     response += "  Inventory Items:\n"
 
-    for i in our_hero.inventory:
-        response += "    " + i["name"]
-        if "hit_point_adjustment" in i:
-            response += "(" + i["hit_point_adjustment"] + ")"
+    # Create Collections for each item:
+    counted_items = {}
+    for item in our_hero.inventory:
+        if item["name"] in counted_items:  # item is the key, the count of the item will be the value.
+            item_count = counted_items.get(item["name"])
+            counted_items.update({item["name"]: item_count + 1})
+        else:
+            counted_items.update({item["name"]: 1})
+
+    for i in counted_items.keys():
+        response += "    %d %s" % (counted_items.get(i), i)
         response += '\n'
     response += medium_border
     return response

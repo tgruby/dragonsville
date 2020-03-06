@@ -5,7 +5,6 @@ from model import characters
 from controller import town
 
 
-# TODO: Add Dropping Items from Monsters
 # TODO: Add Leveling up for characters
 # TODO: Allow to create multiple characters
 # TODO: Allow for multiple monster attacks at the same time
@@ -15,7 +14,7 @@ from controller import town
 # TODO: Add traps
 # TODO: Add "guardians" that guard staircases going up and down
 # TODO: Move to web-based, so we can be more dynamic images than ascii art
-
+# TODO: Add
 
 # Main function that starts the game.
 def main():

@@ -227,4 +227,3 @@ all_monsters = [
     banshee,
     minotaur
 ]
-
