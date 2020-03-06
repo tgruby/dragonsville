@@ -1,8 +1,10 @@
 import sys
 import common
 import random
+import logging
 from view import screen, images
 
+log = logging.getLogger('dragonsville')
 fight_commands = "(F)ight, (R)un away!"
 
 
@@ -25,7 +27,9 @@ def fight_a_monster(our_hero, monster, view):
             sys.exit()
         next_move = input("Next? ")
         if next_move.lower() == "f":
+            log.info("%s has %d hit points before being attacked." % (monster.name, monster.hit_points))
             message = our_hero.attack(monster)
+            log.info("%s has %d hit points after being attacked." % (monster.name, monster.hit_points))
             if monster.is_alive():
                 message = message + '\n ' + monster.attack(our_hero)
                 if not our_hero.is_alive():
