@@ -10,7 +10,7 @@ def enter_the_map_shop(our_hero):
     is_leaving_the_shop = False
     message = "Welcome to Tina's Cartography, mighty warrior! Would you like to buy a map of the dungeon? They are " \
               "incredibly useful, and many warriors died to produce them! "
-    left_pane = images.shop
+    left_pane = images.scroll
     right_pane = draw_map_list()
 
     while not is_leaving_the_shop:
