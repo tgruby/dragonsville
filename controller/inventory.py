@@ -2,15 +2,15 @@ from view import screen, images
 import common
 import logging
 
-commands = "Enter a (#) to equip an item, (L)eave inventory"
+commands = "Enter a (#) to equip an item, or (C)lose Pack"
 log = logging.getLogger('dragonsville')
 
 
 # This function controls our interactions at the weapons store
 def look_at_inventory(our_hero):
     is_done = False
-    message = "inventory"
-    left_pane = images.backpack
+    message = "You open you pack and check your inventory..."
+    left_pane = images.backpack_small
     right_pane = common.list_inventory(our_hero)
 
     while not is_done:
@@ -20,9 +20,10 @@ def look_at_inventory(our_hero):
             message,
             left_pane,
             right_pane
+
         )
         next_move = input("Next? ")
-        if next_move.lower() == 'l':
+        if next_move.lower() == 'c':
             is_done = True
         elif next_move.isdigit():
             item_number_picked = int(next_move)
