@@ -5,7 +5,7 @@ from model import items
 class Character:
     # Global Class Variables
 
-    # Monster Constructor
+    # Character Constructor (for our hero)
     def __init__(self, character_definition):
         self.name = character_definition["name"]
         self.image = character_definition["image"]

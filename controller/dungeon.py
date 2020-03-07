@@ -5,6 +5,7 @@ import common
 import random
 from view import physics, screen
 from model import monsters
+from controller import inventory
 from controller import fight
 
 # Commands
@@ -64,7 +65,7 @@ def enter_the_dungeon(our_hero):
             message = view.climb_down()
         # List Stats
         if next_move.lower() == "i":
-            right_pane = common.list_inventory(our_hero)
+            inventory.look_at_inventory(our_hero)
 
 
 # Determine if our hero has a map for this dungeon

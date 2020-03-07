@@ -1,11 +1,13 @@
 import os
 import pickle
+import logging
 from view import screen
 
 # These borders are used throughout the game
 border = "<=================================<>=================================>"
 medium_border = "<=====================<>====================>"
 short_border = "<========<>========>"
+log = logging.getLogger('dragonsville')
 
 
 # This helper function checks which type of computer we are on and calls the correct clear screen command.
@@ -114,17 +116,28 @@ def list_inventory(our_hero):
     response += medium_border + '\n'
     response += "  Inventory Items:\n"
 
-    # Create Collections for each item:
-    counted_items = {}
-    for item in our_hero.inventory:
-        if item["name"] in counted_items:  # item is the key, the count of the item will be the value.
-            item_count = counted_items.get(item["name"])
-            counted_items.update({item["name"]: item_count + 1})
-        else:
-            counted_items.update({item["name"]: 1})
+    collapsed_items = collapse_inventory_items(our_hero)
 
-    for i in counted_items.keys():
-        response += "    %d %s" % (counted_items.get(i), i)
+    # List the items on the screen
+    for num, i in enumerate(collapsed_items):
+        response += "    %d. %d %s" % (num+1, i[0], i[1])
         response += '\n'
     response += medium_border
     return response
+
+
+# Create a list of items in the inventory, with one item per item type and a count of items.
+def collapse_inventory_items(our_hero):
+    # Create Collections for each item (and count up the number of each that we have):
+    collapsed_items = []
+    for item in our_hero.inventory:
+        item_found = False
+        for collapsed_item in collapsed_items:
+            if collapsed_item[1] == item["name"]:
+                collapsed_item[0] += 1  # Increment Count
+                item_found = True
+        if not item_found:
+            collapsed_item = [1, item["name"], item["type"], item]
+            collapsed_items.append(collapsed_item)
+
+    return collapsed_items
