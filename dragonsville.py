@@ -4,7 +4,7 @@ from view import images
 from model import characters
 from controller import town
 
-
+# TODO: Convert from ladders to up and down doorways.  Should simplify screen logic.
 # TODO: Add Leveling up for characters
 # TODO: Allow to create multiple characters
 # TODO: Allow for multiple monster attacks at the same time

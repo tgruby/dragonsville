@@ -163,8 +163,9 @@ class PointOfView:
 
         try:
             return getattr(images, image_file)
+
         except:
-            return images.cactus + '\n  ' + image_file
+            return images.missing_file + '\n   Missing Image:\n' + image_file
 
     # Return what we find in this block: wall, hallway, door, up-ladder, down-ladder
     def get_value_at_block(self, direction, x, y, block):
