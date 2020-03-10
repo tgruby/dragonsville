@@ -31,7 +31,6 @@ def main():
 
     common.clear_screen()
     print(images.game_title)
-    print(images.dragon)
     print(common.border)
     print("  Welcome brave warrior to the small town of Dragonsville!  We ")
     print("  thought we had a clever name until an actual dragon moved into town.")
