@@ -11,10 +11,9 @@ from controller import town
 # TODO: Move Monsters+ to individual external files including level guides to allow for independent creation and loading
 # TODO: Fix all the broken dungeon images
 # TODO: Add doorways and rooms
-# TODO: Add tra
-#
-#  ps
+# TODO: Add traps
 # TODO: Add "guardians" that guard staircases going up and down
+# TODO: Add the ability to "sense" coming up on monster guardians the square before.
 # TODO: Move to web-based, so we can be more dynamic images than ascii art
 # TODO: Add Alchemy Shop: exchange monster parts + gold for potions
 # TODO: equip other items.

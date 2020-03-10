@@ -1,6 +1,9 @@
+import logging
 from model import monsters
 from controller import fight
 from view import dungeon_creator, screen, images
+
+log = logging.getLogger('dragonsville')
 
 
 # This class is used to contain all the logic to manage the point of view of the hero as she moves through the maze.
@@ -14,9 +17,9 @@ class PointOfView:
     wall_2 = '+'
     wall_3 = '|'
     wall = 'W'
-    ladder_up = 'U'
-    ladder_down = 'D'
-    monster = 'M'
+    door = 'D'
+    doorway_up = '^'
+    doorway_down = 'v'
     x_marks_the_spot = 'X'
 
     # Direction Keys
@@ -119,13 +122,18 @@ class PointOfView:
         self.current_dungeon_map = self.dungeons[dungeon_id]["map"]
         self.current_direction = direction
         self.our_hero = our_hero
-        # We assume on instantiation that we came "down" into the dungeon.  So we need to find the up_ladder in this
-        # dungeon Using for loop
-        for i in range(len(self.current_dungeon)):
-            for j in range(len(self.current_dungeon[0])):
-                if self.current_dungeon[i][j] == self.ladder_up:
+        self.current_image = None
+
+        for row in self.current_dungeon:
+            log.info(row)
+        # We assume on instantiation that we came "down" into the dungeon.
+        # So we need to find the up door in this dungeon by scanning the 2d array
+        for i in range(len(self.current_dungeon)-1):
+            for j in range(len(self.current_dungeon[0])-1):
+                if self.current_dungeon[i][j] == self.doorway_up:
                     self.current_y = i
                     self.current_x = j
+                    log.info("starting x: %d, y: %d" % (j, i))
                     return
 
     def generate_perspective(self):
@@ -137,22 +145,26 @@ class PointOfView:
         pos = []
 
         visible_limit = False
-        for block_range in self.blocks:
-            left_block = self.get_value_at_block(d, x, y, block_range[0])
-            center_block = self.get_value_at_block(d, x, y, block_range[1])
-            right_block = self.get_value_at_block(d, x, y, block_range[2])
+        for i, block_range in enumerate(self.blocks):
+            # Ignore the Door (treat it as a Hall) if we are standing in the doorway.
+            ignore_door = False
+            if i is 0:
+                ignore_door = True
+            left_block = self.get_value_at_block(d, x, y, False, block_range[0])
+            center_block = self.get_value_at_block(d, x, y, ignore_door, block_range[1])
+            right_block = self.get_value_at_block(d, x, y, False, block_range[2])
             pos.append('_')
             pos.append(left_block)
             pos.append(center_block)
             pos.append(right_block)
-            if center_block is self.wall:
+            if i != 0 and (center_block is self.wall or center_block is self.door):
                 visible_limit = True
                 break
 
         # If we have visibility out all 3 blocks, check to see if our end block is a hall or a wall.
         if not visible_limit and len(pos) is 12:
             pos.append('_')
-            pos.append(self.get_value_at_block(d, x, y, self.distant_center_block))
+            pos.append(self.get_value_at_block(d, x, y, False, self.distant_center_block))
 
         image_file = "dungeon"
         for p in pos:
@@ -168,11 +180,16 @@ class PointOfView:
             return images.missing_file + '\n   Missing Image:\n' + image_file
 
     # Return what we find in this block: wall, hallway, door, up-ladder, down-ladder
-    def get_value_at_block(self, direction, x, y, block):
+    def get_value_at_block(self, direction, x, y, ignore_door, block):
         try:
             x1 = block[direction]['x']
             y1 = block[direction]['y']
             value = self.current_dungeon[y + y1][x + x1]
+            if value == self.doorway_down or value == self.doorway_up:
+                if ignore_door:
+                    return self.hallway
+                else:
+                    return self.door
             if value == self.hallway_1 or value == self.x_marks_the_spot:
                 return self.hallway
             elif value == self.wall_1 or value == self.wall_2 or value == self.wall_3:
@@ -212,20 +229,34 @@ class PointOfView:
         y1 = self.mid_center_block[self.current_direction]['y']
         value = self.current_dungeon[self.current_y + y1][self.current_x + x1]
         if value == self.hallway_1 or \
-                value == self.ladder_up or \
-                value == self.ladder_down or \
+                value == self.doorway_up or \
+                value == self.doorway_down or \
                 value == self.x_marks_the_spot:
             self.current_y += y1
             self.current_x += x1
             if self.current_dungeon[self.current_y][self.current_x] == self.x_marks_the_spot:
                 fight.fight_a_monster(self.our_hero, monsters.Monster(monsters.red_dragon), self)
+            if value == self.doorway_up:
+                return self.climb_up()
+            if value == self.doorway_down:
+                return self.climb_down()
             return "You move one space " + self.get_direction() + "."
         else:
             return "You can't walk through walls!"
 
+    def turn_around(self):
+        if self.current_direction == self.north:
+            self.current_direction = self.south
+        elif self.current_direction == self.south:
+            self.current_direction = self.north
+        elif self.current_direction == self.east:
+            self.current_direction = self.west
+        elif self.current_direction == self.west:
+            self.current_direction = self.east
+
     def climb_down(self):
         # First check if they are on a down_ladder
-        if self.current_dungeon[self.current_y][self.current_x] == self.ladder_down:
+        if self.current_dungeon[self.current_y][self.current_x] == self.doorway_down:
             self.current_dungeon_id = self.current_dungeon_id + 1
             self.current_dungeon = self.dungeons[self.current_dungeon_id]["maze"]
             self.current_dungeon_map = self.dungeons[self.current_dungeon_id]["map"]
@@ -233,17 +264,18 @@ class PointOfView:
             # there.
             for i in range(len(self.current_dungeon)):
                 for j in range(len(self.current_dungeon[i])):
-                    if self.current_dungeon[i][j] == self.ladder_up:
+                    if self.current_dungeon[i][j] == self.doorway_up:
                         self.current_y = i
                         self.current_x = j
                         break
+            self.turn_around()
             return "You climb down into the next dungeon!"
         else:
             return "You can't do that here!"
 
     def climb_up(self):
         # First check if they are on a down_ladder
-        if self.current_dungeon[self.current_y][self.current_x] == self.ladder_up:
+        if self.current_dungeon[self.current_y][self.current_x] == self.doorway_up:
             self.current_dungeon_id = self.current_dungeon_id - 1
             # In this case, we climbed out of the dungeons, just return
             if self.current_dungeon_id < 0:
@@ -255,10 +287,11 @@ class PointOfView:
                 # there.
                 for i in range(len(self.current_dungeon)):
                     for j in range(len(self.current_dungeon[i])):
-                        if self.current_dungeon[i][j] == self.ladder_down:
+                        if self.current_dungeon[i][j] == self.doorway_down:
                             self.current_y = i
                             self.current_x = j
                             break
+                self.turn_around()
                 return "You climb up into the higher dungeon."
         else:
             return "You can't do that here!"

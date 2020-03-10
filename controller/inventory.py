@@ -20,7 +20,6 @@ def look_at_inventory(our_hero):
             message,
             left_pane,
             right_pane
-
         )
         next_move = input("Next? ")
         if next_move.lower() == 'c':

@@ -9,14 +9,14 @@ from controller import inventory
 from controller import fight
 
 # Commands
-move_commands = "Left (A), Right (D), Forward (W), (U)p, Down (J), (I)nventory"
+move_commands = "Left (A), Right (D), Forward (W), (I)nventory"
 
 
 # This Function is to walk through the dungeon and display the results of moving through the dungeon on the screen. This
 # continues to loop until we leave the dungeon.
 def enter_the_dungeon(our_hero):
     # Instantiate a point of view object.  This will help us render the view of your character
-    view = physics.PointOfView(0, physics.PointOfView.south, our_hero)
+    view = physics.PointOfView(0, physics.PointOfView.east, our_hero)
     message = "Welcome to the Dungeon!"
     next_move = None
 
@@ -51,18 +51,13 @@ def enter_the_dungeon(our_hero):
                 # Test to see if we run into a skeleton
                 run_into_a_monster = random.randint(1, 10)  # 10% spawn a monster
                 if run_into_a_monster == 1:
-                    # spawn a monster and go to battle!
+                    # spawn a monster and go to ba
+                    # ttle!
                     monster = monsters.get_a_monster_for_dungeon(view.current_dungeon_id)
                     fight.fight_a_monster(our_hero, monster, view)
-        # Go Up Ladder
-        if next_move.lower() == "u":
-            message = view.climb_up()
             if view.current_dungeon_id < 0:
                 # we have left the dungeon_0, return
                 is_leaving_dungeon = True
-        # Go Down Ladder
-        if next_move.lower() == "j":
-            message = view.climb_down()
         # List Stats
         if next_move.lower() == "i":
             inventory.look_at_inventory(our_hero)

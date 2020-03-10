@@ -75,7 +75,7 @@ def get_stats(view, our_hero):
         return "*** YOU ARE DEAD ***"
     else:
         response = "Health: %d, Gold: %d, Weapon: %s" % (
-            our_hero.hit_points, our_hero.gold, our_hero.equipped_weapon["name"])
+             our_hero.hit_points, our_hero.gold, our_hero.equipped_weapon["name"])
         if view:
             response += ", Facing: " + view.get_direction()
         return response
