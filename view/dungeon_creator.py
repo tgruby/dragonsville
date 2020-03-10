@@ -13,11 +13,11 @@ def get_dungeons():
 def make_dungeons():
     #  loop through and create 4 dungeons, each progressively bigger
     dungeons = []
+    last_dungeon = False
     for dungeon_id in range(4):
         if dungeon_id == 3:
-            dungeons.append(make_maze(5 + dungeon_id, 3 + dungeon_id, dungeon_id, True))
-        else:
-            dungeons.append(make_maze(5 + dungeon_id, 3 + dungeon_id, dungeon_id, False))
+            last_dungeon = True
+        dungeons.append(make_maze(8 + dungeon_id, 6 + dungeon_id, dungeon_id, last_dungeon))
 
     return dungeons
 

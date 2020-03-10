@@ -267,8 +267,9 @@ class PointOfView:
                     if self.current_dungeon[i][j] == self.doorway_up:
                         self.current_y = i
                         self.current_x = j
+                        self.turn_around()  # Turn around, so we are "entering" the next dungeon
+                        self.step_forward()  # Take one more step forward to enter the dungeon
                         break
-            self.turn_around()
             return "You climb down into the next dungeon!"
         else:
             return "You can't do that here!"
@@ -290,8 +291,9 @@ class PointOfView:
                         if self.current_dungeon[i][j] == self.doorway_down:
                             self.current_y = i
                             self.current_x = j
+                            self.turn_around()  # Turn around, so we are "entering" the next dungeon
+                            self.step_forward()  # Take one more step forward to enter the dungeon
                             break
-                self.turn_around()
                 return "You climb up into the higher dungeon."
         else:
             return "You can't do that here!"
