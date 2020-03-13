@@ -46,18 +46,17 @@ def enter_the_dungeon(our_hero):
         # Step Forward
         if next_move.lower() == "w":
             message = view.step_forward()
-            # Prevent "farming" by running into the wall right in front of the hero.
-            if message != "You can't walk through walls!":
-                # Test to see if we run into a skeleton
-                run_into_a_monster = random.randint(1, 10)  # 10% spawn a monster
-                if run_into_a_monster == 1:
-                    # spawn a monster and go to ba
-                    # ttle!
-                    monster = monsters.get_a_monster_for_dungeon(view.current_dungeon_id)
-                    fight.fight_a_monster(our_hero, monster, view)
             if view.current_dungeon_id < 0:
                 # we have left the dungeon_0, return
                 is_leaving_dungeon = True
+            # Prevent "farming" by running into the wall right in front of the hero.
+            elif message != "You can't walk through walls!":
+                # Test to see if we run into a skeleton
+                run_into_a_monster = random.randint(1, 10)  # 10% spawn a monster
+                if run_into_a_monster == 1:
+                    # spawn a monster and go to battle!
+                    monster = monsters.get_a_monster_for_dungeon(view.current_dungeon_id)
+                    fight.fight_a_monster(our_hero, monster, view)
         # List Stats
         if next_move.lower() == "i":
             inventory.look_at_inventory(our_hero)

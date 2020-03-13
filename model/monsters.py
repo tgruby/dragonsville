@@ -44,6 +44,8 @@ class Monster:
 
 # This Function is to decide which monster to spawn in a given dungeon.
 def get_a_monster_for_dungeon(dungeon_id):
+    if dungeon_id < 0:
+        return None
     dungeon_monsters = []
 
     # Build a list of monsters that we could find in this dungeon
@@ -124,7 +126,7 @@ giant_spider = {
 wolf = {
     "name": "Wolf",
     "type": "monster",
-    "level": 9,
+    "level": 11,
     "image": images.wolf,
     "max_hit_points": 25,
     "max_gold": 10,
@@ -134,7 +136,7 @@ wolf = {
 goblin = {
     "name": "Goblin",
     "type": "monster",
-    "level": 11,
+    "level": 12,
     "image": images.goblin,
     "max_hit_points": 20,
     "max_gold": 22,

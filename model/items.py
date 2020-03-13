@@ -63,7 +63,7 @@ ant_pincers = {
 spider_fangs = {
     "type": "weapon",
     "name": "Spider Fangs",
-    "damage": 12,
+    "damage": 6,
     "cost": 0,
     "attack_message": "%s sinks it's fangs into you doing %d damage!"
 }
@@ -79,10 +79,11 @@ bat_fangs = {
 rat_teeth = {
     "type": "weapon",
     "name": "Rat Teeth",
-    "damage": 5,
+    "damage": 4,
     "cost": 0,
     "attack_message": "%s sinks it's teeth into you doing %d damage!"
 }
+
 
 wolf_teeth = {
     "type": "weapon",
@@ -95,7 +96,7 @@ wolf_teeth = {
 badger_teeth = {
     "type": "weapon",
     "name": "Badger Teeth",
-    "damage": 12,
+    "damage": 8,
     "cost": 0,
     "attack_message": "%s sinks it's teeth into you doing %d damage!"
 }
@@ -111,7 +112,7 @@ fireball = {
 bee_stinger = {
     "type": "weapon",
     "name": "Bee Stinger",
-    "damage": 10,
+    "damage": 3,
     "cost": 0,
     "attack_message": "%s dive and stab you with their stingers dealing %d damage!"
 }

@@ -16,11 +16,19 @@ app.secret_key = b'garbage_in_garbage_out'
 def root():
     return render_template("index.html")
 
+# Receive a command from the browser and respond with a json object representing each panel.
+@app.route('/command')
+def root():
+    current_controller = session['controller']
+    # TODO: Do some processing
 
-# @app.route('/command')
-# def root():
-#     current_controller = session['controller']
-#     return render_template("index.html")
+    return {
+        "stats_panel": None,
+        "view_panel": None,
+        "info_panel": None,
+        "message_panel": None,
+        "commands_panel": None
+    }
 
 
 if __name__ == '__main__':

@@ -11,7 +11,10 @@ class Character:
         self.image = character_definition["image"]
         self.type = character_definition["type"]
         self.race = character_definition["race"]
-        self.hit_points = character_definition["hit_points"]
+        self.max_hit_points = random.randint(12, character_definition["hit_points"])
+        self.hit_points = self.max_hit_points
+        self.experience_points = character_definition["experience_points"]
+        self.level = 1
         self.gold = character_definition["gold"]
         self.equipped_weapon = character_definition["equipped_weapon"]
         self.equipped_armor = character_definition["equipped_armor"]
@@ -28,7 +31,20 @@ class Character:
         weapon = self.equipped_weapon
         damage = random.randint(0, weapon["damage"])
         monster.hit_points -= damage
-        return weapon["attack_message"] % (self.name, damage)
+        message = weapon["attack_message"] % (self.name, damage)
+        if not monster.is_alive():
+            #  We killed the monster.  Add experience points to our hero
+            self.experience_points += monster.level
+            message += " You have killed the %s!" % monster.name
+            if self.experience_points > (self.level * 10 * 1.25):
+                # We have leveled up!  add additional hit points
+                addl_hit_points = random.randint(4, 8)
+                self.max_hit_points\
+                    += addl_hit_points
+                self.hit_points += addl_hit_points
+                self.level += 1
+                message += " You have gained enough experience to level up to level %d!" % self.level
+        return message
 
 
 warrior = {
@@ -36,10 +52,13 @@ warrior = {
     "type": "warrior",
     "race": "human",
     "image": None,
-    "hit_points": 100,
-    "gold": random.randint(0, 5),
-    "equipped_weapon": items.fists_and_feet,
+    "hit_points": 20,
+    "experience_points": 0,
+    "gold": random.randint(10, 20),
+    "equipped_weapon": items.dagger,
     "equipped_armor": None,
     "equipped_shield": None,
-    "inventory": []
+    "inventory": [items.dagger],
+    "experience_levels": 25,
+    "level_up_hit_points": 15
 }

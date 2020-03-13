@@ -124,15 +124,13 @@ class PointOfView:
         self.our_hero = our_hero
         self.current_image = None
 
-        for row in self.current_dungeon:
-            log.info(row)
         # We assume on instantiation that we came "down" into the dungeon.
         # So we need to find the up door in this dungeon by scanning the 2d array
         for i in range(len(self.current_dungeon)-1):
             for j in range(len(self.current_dungeon[0])-1):
                 if self.current_dungeon[i][j] == self.doorway_up:
                     self.current_y = i
-                    self.current_x = j
+                    self.current_x = j + 1
                     log.info("starting x: %d, y: %d" % (j, i))
                     return
 

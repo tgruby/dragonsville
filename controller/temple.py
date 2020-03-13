@@ -21,17 +21,17 @@ def enter_the_temple(our_hero):
         )
         next_move = input("Next? ")
         if next_move.lower() == "f":
-            if our_hero.hit_points != 100:  # Make sure we need healing
+            if our_hero.hit_points != our_hero.max_hit_points:  # Make sure we need healing
                 if our_hero.gold >= full_price(our_hero):
                     our_hero.gold = our_hero.gold - full_price(our_hero)
-                    our_hero.hit_points = 100
+                    our_hero.hit_points = our_hero.max_hit_points
                     message = "The temple priests pray over you and you are fully healed!"
                 else:
                     message = "You do not have enough gold!"
             else:
                 message = "You are healthy! You don't need healing!"
         if next_move.lower() == "p":
-            if our_hero.hit_points != 100:  # Make sure we need healing
+            if our_hero.hit_points != our_hero.max_hit_points:  # Make sure we need healing
                 if our_hero.gold >= half_price(our_hero):
                     our_hero.gold -= half_price(our_hero)
                     our_hero.hit_points += half_percent(our_hero)
@@ -46,7 +46,7 @@ def enter_the_temple(our_hero):
 
 
 def full_price(our_hero):
-    return round((100 - our_hero.hit_points) / 2)
+    return round((our_hero.max_hit_points - our_hero.hit_points) / 2)
 
 
 def half_price(our_hero):
@@ -54,14 +54,14 @@ def half_price(our_hero):
 
 
 def half_percent(our_hero):
-    full_percent = round(100 - our_hero.hit_points)
+    full_percent = round(our_hero.max_hit_points - our_hero.hit_points)
     return round(full_percent / 2)
 
 
 # List out the various healing that our hero can have
 def draw_healing_list(our_hero):
     border = "<================<o>================>\n"
-    full_percent = round(100 - our_hero.hit_points)
+    full_percent = round(our_hero.max_hit_points - our_hero.hit_points)
 
     response = border
     response += " Description     | % Healed | Cost" + '\n'

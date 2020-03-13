@@ -39,11 +39,7 @@ def walk_through_the_town(our_hero):
         # Enter Dungeon
         if next_move.lower() == "d":
             dungeon.enter_the_dungeon(our_hero)
-        # Enter Dungeon
-        if next_move.lower() == "z":
-            # Hidden feature to find gold so we can test.  remove after testing.
-            our_hero.gold += 100
-            message = "You stumble over a bag of gold!"
         # Quit Game
         if next_move.lower() == "l":
-            sys.exit("You leave town and trade the life of a hero for that of a peasant.")
+            sys.exit("You leave to the edge of town to rest."
+                     "")
