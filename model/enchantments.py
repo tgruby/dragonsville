@@ -27,12 +27,33 @@ class EnchantedItem:
 
 health_potion = {
     "name": "Health Potion",
-    "descripton": "This potion will heal the drinker.",
+    "description": "This potion will heal the drinker.",
     "type": "potion",
     "max_hit_points": 30,
+    "affects": "character",
     "cost": 10
 }
 
+gandalfs_granola = {
+    "name": "Gandalf's Granola",
+    "description": "This Granola bar will heal the consumer.",
+    "type": "potion",
+    "max_hit_points": 100,
+    "affects": "character",
+    "cost": 100
+}
+
+super_scroll= {
+    "name": "Super Scroll",
+    "description": "This Scroll has the capability to kill any monster.",
+    "type": "scroll",
+    "max_hit_points": 500,
+    "affects": "character",
+    "cost": 1000
+}
+
 all_enchantments = [
-    health_potion
+    health_potion,
+    gandalfs_granola,
+    super_scroll
 ]

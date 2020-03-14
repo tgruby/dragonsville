@@ -1,9 +1,9 @@
 import sys
 import common
 from view import screen, images
-from controller import dungeon, cartography_shop, equipment_shop, temple
+from controller import dungeon, cartography_shop, equipment_shop, temple, enchantment_shop
 
-town_commands = "(E)quipment Shop, (C)artographer, (T)emple, (D)ungeon, (L)eave Town"
+town_commands = "(E)quipment Shop, (M)agic Shop, (C)artographer, (T)emple, (D)ungeon, (L)eave Town"
 
 
 # Function to navigate the town
@@ -43,3 +43,6 @@ def walk_through_the_town(our_hero):
         if next_move.lower() == "l":
             sys.exit("You leave to the edge of town to rest."
                      "")
+        # Visit the Magic shop
+        if next_move.lower() == "m":
+            enchantment_shop.enter_the_shop(our_hero)
