@@ -52,6 +52,7 @@ def center_text(text, space, length):
     return line
 
 
+# Create the center pane, taking the left and right image and returning an array with both together.
 def create_center_pane(left_image, right_image):
     if left_image is None:
         left_image = ''
@@ -59,32 +60,37 @@ def create_center_pane(left_image, right_image):
         right_image = ''
 
     # Left Image should be fit into a h=20, w=26 space
-    left_image_lines = str.splitlines(left_image)
-    # First box the image, then crop it, then center it.
-    left_boxed_image = box_image(left_image_lines)
-
-    left_cropped_image = crop_image(left_boxed_image, center_pane_height, left_pane_width)
-
-    left_centered_image = []
-    for image in left_cropped_image:
-        left_centered_image.append(center_text(image, ' ', left_pane_width))
+    left_pane_content = square_image(left_image, 20, left_pane_width)
 
     # Right Image should be fit into a h=20, w=45 space
-    right_image_lines = str.splitlines(right_image)
-    # First box the image, then crop it, then center it.
-    right_boxed_image = box_image(right_image_lines)
-    right_cropped_image = crop_image(right_boxed_image, center_pane_height, right_pane_width)
-    right_centered_image = []
-    for image in right_cropped_image:
-        right_centered_image.append(center_text(image, ' ', right_pane_width))
+    right_pane_content = square_image(right_image, 20, right_pane_width)
 
     # Put the images together
     buff = []
     for index in range(20):
-        buff.append(' ' + v_border + left_centered_image[index] +
-                    v_border + right_centered_image[index] + v_border)
+        buff.append(' ' + v_border + left_pane_content[index] +
+                    v_border + right_pane_content[index] + v_border)
 
     return buff
+
+
+# Images are irregular shapes.  We need to make every line the same length, crop them, and center them.
+def square_image(image, height, width):
+    if image is None:
+        image = ''
+
+    # Break Image into an array of strings
+    image_lines = str.splitlines(image)
+    # First box the image, then crop it, then center it.
+    boxed_image = box_image(image_lines)
+
+    cropped_image = crop_image(boxed_image, height, width)
+
+    centered_image = []
+    for image in cropped_image:
+        centered_image.append(center_text(image, ' ', width))
+
+    return centered_image
 
 
 # Function to make all lines the same size, this will help with positioning

@@ -4,11 +4,11 @@ from view import images
 from model import characters
 from controller import town
 
+# TODO: Add web-based, so we can be more dynamic images than ascii art
 # TODO: Add Alchemy Shop: exchange monster parts + gold for potions
-# TODO: Move to web-based, so we can be more dynamic images than ascii art
+# TODO: Add traps
 # TODO: Allow for multiple monster attacks at the same time
 # TODO: Add rooms
-# TODO: Add traps
 # TODO: Add "guardians" that guard staircases going up and down
 # TODO: Add the ability to "sense" coming up on monster guardians the square before.
 # TODO: Allow to create multiple characters

@@ -1,5 +1,9 @@
 from flask import Flask, session
 from flask import render_template
+from flask import make_response
+from controller import town
+import common
+import json
 
 # System Design:
 #   Store character in the database as well as the dungeons.
@@ -14,13 +18,31 @@ app.secret_key = b'garbage_in_garbage_out'
 # Draw the initial single page application
 @app.route('/')
 def root():
-    return render_template("index.html")
+    # Inject no-cache commands into the header.
+    resp = make_response(render_template("index.html"), 200)
+    resp.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"  # HTTP 1.1.
+    resp.headers["Pragma"] = "no-cache"  # HTTP 1.0.
+    resp.headers["Expires"] = "0"  # Proxies.
+
+    # First time loading the site so we need to load up the session.
+    our_hero = common.load_hero()  # Load up our hero.  Auto-creates if we need a new one.
+    session['controller'] = "town"  # Start in the town.
+    session['our_hero'] = json.dumps(our_hero)
+    session['view'] = town.init(our_hero)
+    session['splash_screen'] = True  # Show the splash screen.
+
+    return resp
+
 
 # Receive a command from the browser and respond with a json object representing each panel.
-@app.route('/command')
-def root():
-    current_controller = session['controller']
-    # TODO: Do some processing
+@app.route('/command/<command_id>')
+def command(command_id):
+
+    # First grab the session state
+    our_hero = session["our_hero"]
+    controller = session["controller"]
+
+
 
     return {
         "stats_panel": None,

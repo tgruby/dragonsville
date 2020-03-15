@@ -2,6 +2,14 @@ import random
 from model import items
 
 
+class DungeonLocation:
+
+    def __init__(self, dungeon_id, x, y):
+        self.dungeon = dungeon_id
+        self.x = x
+        self.y = y
+
+
 class Character:
     # Global Class Variables
 
@@ -20,7 +28,7 @@ class Character:
         self.equipped_armor = character_definition["equipped_armor"]
         self.equipped_shield = character_definition["equipped_shield"]
         self.inventory = character_definition["inventory"]
-        self.killed_dragon = False
+        self.location = None
 
     # Return True if the character is alive, False if not.
     def is_alive(self):
