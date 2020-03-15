@@ -37,8 +37,8 @@ def enter_the_shop(our_hero):
             # Change this to enchantment objects
             if item_number_picked < len(enchantments.all_enchantments):
                 item = enchantments.all_enchantments[item_number_picked]
-
                 commands_pane = purchase_commands
+                message = "Oh, a fine %s.  %s" % (item["name"], item["description"])
             else:
                 message = "There is no item of that number!"
         elif next_move.lower() == 'y':
@@ -50,6 +50,7 @@ def enter_the_shop(our_hero):
                 #  them the enchanted item.
                 our_hero.inventory.append(item)
                 message = "You have purchased the %s." % item["name"]
+                commands_pane = commands
         elif next_move.lower() == 'n':
             commands_pane = commands
             message = starter_message

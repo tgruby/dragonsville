@@ -3,13 +3,13 @@ import common
 from view import screen, images
 from controller import dungeon, cartography_shop, equipment_shop, temple, enchantment_shop
 
-town_commands = "(E)quipment Shop, (M)agic Shop, (C)artographer, (T)emple, (D)ungeon, (L)eave Town"
+town_commands = "(E)quipment, (M)agic, (C)artographer, (T)emple, (D)ungeon, (L)eave Town"
 
 
 # Function to navigate the town
 def walk_through_the_town(our_hero):
     is_leaving_town = False
-    message = "Welcome to the town of Dragonsville!"
+    message = "Welcome to the town of Dragonsville! Enter a shop... or the dungeon if you dare!"
     left_pane = images.small_village
 
     while not is_leaving_town:
@@ -33,6 +33,9 @@ def walk_through_the_town(our_hero):
         # Go into the Temple
         if next_move.lower() == "c":
             cartography_shop.enter_the_map_shop(our_hero)
+        # Visit the Magic shop
+        if next_move.lower() == "m":
+            enchantment_shop.enter_the_shop(our_hero)
         # Go into the Temple
         if next_move.lower() == "t":
             temple.enter_the_temple(our_hero)
@@ -43,6 +46,3 @@ def walk_through_the_town(our_hero):
         if next_move.lower() == "l":
             sys.exit("You leave to the edge of town to rest."
                      "")
-        # Visit the Magic shop
-        if next_move.lower() == "m":
-            enchantment_shop.enter_the_shop(our_hero)

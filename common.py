@@ -74,8 +74,8 @@ def get_stats(view, our_hero):
     if not our_hero.is_alive():
         return "*** YOU ARE DEAD ***"
     else:
-        response = "Hit Points: %d, Experience: %d, Level: %d, Gold: %d" % (
-             our_hero.hit_points, our_hero.experience_points, our_hero.level, our_hero.gold)
+        response = "Hit Points: %d/%d, Experience: %d, Level: %d, Gold: %d" % (
+             our_hero.hit_points, our_hero.max_hit_points, our_hero.experience_points, our_hero.level, our_hero.gold)
         if view:
             response += ", Facing: " + view.get_direction()
         return response

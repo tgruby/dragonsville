@@ -1,6 +1,7 @@
 from view import screen, images
 import common
 import logging
+import random
 
 commands = "Enter a (#) to equip an item, or (C)lose Pack"
 log = logging.getLogger('dragonsville')
@@ -41,6 +42,17 @@ def look_at_inventory(our_hero):
             elif selected_item["type"] == "shield":
                 our_hero.equipped_shield = selected_item
                 message = "You have equipped the %s." % selected_item["name"]
+            elif selected_item["type"] == "potion":
+                if our_hero.hit_points == our_hero.max_hit_points:
+                    message = "You don't need that right now."
+                else:
+                    healing = random.randint(4, selected_item["max_hit_points"])
+                    if our_hero.hit_points + healing > our_hero.max_hit_points:
+                        our_hero.hit_points = our_hero.max_hit_points
+                    else:
+                        our_hero.hit_points += healing
+                    our_hero.inventory.remove(selected_item)
+                    message = "You drank the %s and a warm fuzzy feeling comes over you." % selected_item["name"]
             else:
                 message = "You cannot equip that item!"
             right_pane = common.list_inventory(our_hero)

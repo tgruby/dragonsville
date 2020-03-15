@@ -44,7 +44,7 @@ class Character:
             #  We killed the monster.  Add experience points to our hero
             self.experience_points += monster.level
             message += " You have killed the %s!" % monster.name
-            if self.experience_points > (self.level * 10 * 1.25):
+            if self.experience_points > (self.level * 20):  # level x 20 = next level
                 # We have leveled up!  add additional hit points
                 addl_hit_points = random.randint(4, 8)
                 self.max_hit_points\

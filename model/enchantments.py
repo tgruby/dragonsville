@@ -26,8 +26,8 @@ class EnchantedItem:
 # Dictionaries of all enchantments in the Game
 
 health_potion = {
-    "name": "Health Potion",
-    "description": "This potion will heal the drinker.",
+    "name": "Healing Potion",
+    "description": "This potion will refresh you, making you feel ready for the next battle.",
     "type": "potion",
     "max_hit_points": 30,
     "affects": "character",
@@ -36,7 +36,7 @@ health_potion = {
 
 gandalfs_granola = {
     "name": "Gandalf's Granola",
-    "description": "This Granola bar will heal the consumer.",
+    "description": "This Granola bar will make you feel young again, like Gandolf!",
     "type": "potion",
     "max_hit_points": 100,
     "affects": "character",
@@ -45,7 +45,8 @@ gandalfs_granola = {
 
 super_scroll= {
     "name": "Super Scroll",
-    "description": "This Scroll has the capability to kill any monster.",
+    "description": "This Scroll, when read, creates a tiny tornato sending loose debris at frightening speeds into "
+                   "your foe.",
     "type": "scroll",
     "max_hit_points": 500,
     "affects": "character",
