@@ -5,8 +5,160 @@
     <title>Dragonsville</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script type="text/javascript">
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <script>
+      function drawPerspectiveWall(wall_id, canvas_width, canvas_height, partition_size) {
+        var partition_start = partition_size * wall_id;
+        // Calculate the wall line to meet with the 45 degree slope (m = 1)
+        var wall = new createjs.Shape();
+        wall.graphics.setStrokeStyle(2)
+        wall.graphics.beginStroke("#222");
+        if (partition_start < canvas_width / 2) {
+            wall.graphics.beginLinearGradientFill(
+              ["#312e23","#222"],
+              [0.75, 1],
+              partition_start,
+              partition_start,
+              partition_start + partition_size,
+              canvas_height - partition_start - partition_size)
+        } else {
+            wall.graphics.beginLinearGradientFill(
+            ["#222", "#312e23"],
+            [1, 0.75],
+            partition_start + partition_size,
+            canvas_height - partition_start - partition_size,
+            partition_start,
+            partition_start)
+        }
+        if (partition_start + partition_size - 50 == canvas_width / 2) {
+            // truncate the far side of the wall 1/2 through the plane.
+            partition_size = partition_size / 2;
+        } else if (partition_start + partition_size - 100 == canvas_width / 2) {
+            // truncate the near side of the wall 1/2 through the plane.
+            partition_start = partition_start + partition_size / 2
+        }
+        wall.graphics.moveTo(partition_start, partition_start);
+        wall.graphics.lineTo(partition_start, canvas_height - partition_start);
+        wall.graphics.lineTo(partition_start + partition_size, canvas_height - partition_start - partition_size);
+        wall.graphics.lineTo(partition_start + partition_size, partition_start + partition_size);
+        wall.graphics.lineTo(partition_start, partition_start);
 
+        wall.graphics.endFill();
+        wall.graphics.endStroke();
+        return wall;
+      }
+
+      function drawFlatWall(wall_id, canvas_width, canvas_height, partition_size) {
+        var partition_start = partition_size * wall_id;
+        // Calculate the wall line to meet with the 45 degree slope (m = 1)
+        var wall = new createjs.Shape();
+        wall.graphics.setStrokeStyle(2)
+        wall.graphics.beginStroke("#222");
+        start_x = partition_start;
+        start_y = partition_start;
+        end_x = partition_start + partition_size;
+        end_y = canvas_height - partition_start;
+
+        // Draw closest edge
+        if (partition_start < canvas_width / 2) {
+            start_y = partition_start + partition_size;
+            end_y = canvas_height - partition_start - partition_size;
+        } else if (partition_start - 50 == canvas_width / 2) {
+            start_y = partition_start - 50;
+            end_y = partition_start + 50;
+        }
+
+        if (partition_start <= canvas_width / 2 || partition_start - 50 == canvas_width / 2) {
+            wall.graphics.beginLinearGradientFill(
+                  ["#423c31","#222"],
+                  [0.25, 1],
+                  start_x, start_y, start_x, end_y)
+        } else {
+            wall.graphics.beginLinearGradientFill(
+                  ["#423c31","#222"],
+                  [0.25, 1],
+                  start_x, end_y, start_x, start_y)
+        }
+
+        wall.graphics.moveTo(start_x, start_y);
+        wall.graphics.lineTo(start_x, end_y);
+        wall.graphics.lineTo(end_x, end_y);
+        wall.graphics.lineTo(end_x, start_y);
+        wall.graphics.lineTo(start_x, start_y);
+
+        wall.graphics.endFill();
+        wall.graphics.endStroke();
+        return wall;
+      }
+
+      function drawWall(wall_id, type, canvas_width, canvas_height) {
+        // Assume a depth of view of 4 blocks
+        canvas_width = canvas_width - 100;
+        var partition_size = canvas_width / 2 / 4;
+        if (type == "f") return drawFlatWall(wall_id, canvas_width, canvas_height, partition_size);
+        return drawPerspectiveWall(wall_id, canvas_width, canvas_height, partition_size);
+      }
+
+      function init() {
+        var canvas_height = 500;
+        var canvas_width = 500;
+
+        var stage = new createjs.Stage("demoCanvas");
+
+        // Draw ceiling background
+        var ceiling = new createjs.Shape();
+        ceiling.graphics.setStrokeStyle(1)
+        ceiling.graphics.beginStroke("#222");
+        ceiling.graphics.beginLinearGradientFill(
+              ["#525a31","#222"],
+              [0.25, 1],
+              0, 0, 0, canvas_height / 2)
+        ceiling.graphics.moveTo(0, 0);
+        ceiling.graphics.lineTo(0, canvas_height / 2);
+        ceiling.graphics.lineTo(canvas_width, canvas_height / 2);
+        ceiling.graphics.lineTo(canvas_width, 0);
+        ceiling.graphics.lineTo(0, 0);
+        ceiling.graphics.endFill();
+        ceiling.graphics.endStroke();
+        stage.addChild(ceiling);
+
+        // Draw floor background
+        var floor = new createjs.Shape();
+        floor.graphics.setStrokeStyle(1)
+        floor.graphics.beginStroke("#222");
+        floor.graphics.beginLinearGradientFill(
+              ["#645142","#222"],
+              [1, 0.50],
+              0, 0, 0, canvas_height)
+        floor.graphics.moveTo(0, canvas_height / 2);
+        floor.graphics.lineTo(0, canvas_height);
+        floor.graphics.lineTo(canvas_width, canvas_height);
+        floor.graphics.lineTo(canvas_width, canvas_height / 2);
+        floor.graphics.lineTo(0, canvas_height / 2);
+        floor.graphics.endFill();
+        floor.graphics.endStroke();
+        stage.addChild(floor);
+
+        // Draw maze walls
+        stage.addChild(drawWall(0, "p", canvas_width, canvas_height));
+        stage.addChild(drawWall(1, "p", canvas_width, canvas_height));
+        stage.addChild(drawWall(2, "p", canvas_width, canvas_height));
+        stage.addChild(drawWall(3, "p", canvas_width, canvas_height));
+        stage.addChild(drawWall(4, "f", canvas_width, canvas_height));
+        stage.addChild(drawWall(5, "f", canvas_width, canvas_height));
+        stage.addChild(drawWall(6, "p", canvas_width, canvas_height));
+        stage.addChild(drawWall(7, "f", canvas_width, canvas_height));
+        stage.addChild(drawWall(8, "p", canvas_width, canvas_height));
+        stage.addChild(drawWall(9, "p", canvas_width, canvas_height));
+
+        createjs.Ticker.setFPS(30);
+        createjs.Ticker.addEventListener("tick", stage);
+
+        stage.update();
+      }
+
+    </script>
+    <script type="text/javascript">
     document.onkeydown = function(event) {
         switch (event.key) {
            case 'w':
@@ -35,7 +187,7 @@
 
     </script>
 </head>
-<body class="bg-dark" style="font-family: monospace, monospace;">
+<body class="bg-dark" style="font-family: monospace, monospace;" onload="init();">
 
 
 <div class="container m-2 text-light">
@@ -45,9 +197,8 @@
         </div>
     </div>
     <div class="row m-2">
-        <div id="view_pane" class="col mr-1 border rounded text-center">
-            <br/>
-            {{session["view"]["view_pane"]}}
+        <div id="view_pane" class="col mr-1 border rounded">
+            <canvas id="demoCanvas" width="500" height="500"></canvas>
         </div>
         <div id="info_pane" class="col ml-1 border rounded">
             <br/>

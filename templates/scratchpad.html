@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dragonsville</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <script>
+      function drawPerspectiveWall(wall_id, canvas_width, canvas_height, stage) {
+        // Assume 45% angles for perspective
+        var partition_size = canvas_width / 2 / 4;
+        var partition = partition_size * wall_id;
+        // Calculate the wall line to meet with the 45 degree slope (m = 1)
+        var wall = new createjs.Shape();
+        wall.graphics.setStrokeStyle(5)
+        wall.graphics.beginStroke("#FFF");
+        // Draw closest edge
+        wall.graphics.moveTo(partition, partition);
+        wall.graphics.lineTo(partition, canvas_height - partition);
+        // Draw bottom edge
+        wall.graphics.lineTo(partition + partition_size, canvas_height - partition - partition_size);
+        // Draw far edge
+        wall.graphics.lineTo(partition + partition_size, partition + partition_size);
+        // Draw top edge
+        wall.graphics.lineTo(partition, partition);
+
+        wall.graphics.endStroke();
+        stage.addChild(wall);
+      }
+
+      function drawFlatWall(wall_id, canvas_width, canvas_height, stage) {
+        // Assume 45% angles for perspective
+        var partition_size = canvas_width / 2 / 4;
+        var partition = partition_size * wall_id;
+        // Calculate the wall line to meet with the 45 degree slope (m = 1)
+        var wall = new createjs.Shape();
+        wall.graphics.setStrokeStyle(5)
+        wall.graphics.beginStroke("#FFF");
+        // Draw closest edge
+        if (partition > canvas_width / 2) {
+            // We need to invert the size logic (drawing on the right side is upside down from the left)
+            wall.graphics.moveTo(partition, partition);
+            wall.graphics.lineTo(partition, canvas_height - partition);
+            // Draw bottom edge
+            wall.graphics.lineTo(partition + partition_size, canvas_height - partition);
+            // Draw far edge
+            wall.graphics.lineTo(partition + partition_size, partition);
+            // Draw top edge
+            wall.graphics.lineTo(partition, partition);
+        } else {
+            wall.graphics.moveTo(partition, partition + partition_size);
+            wall.graphics.lineTo(partition, canvas_height - partition - partition_size);
+            // Draw bottom edge
+            wall.graphics.lineTo(partition + partition_size, canvas_height - partition - partition_size);
+            // Draw far edge
+            wall.graphics.lineTo(partition + partition_size, partition + partition_size);
+            // Draw top edge
+            wall.graphics.lineTo(partition, partition + partition_size);
+        }
+
+        wall.graphics.endStroke();
+        stage.addChild(wall);
+      }
+
+      function drawWall(wall_id, type, canvas_width, canvas_height, stage) {
+        if (type == "flat") return drawFlatWall(wall_id, canvas_width, canvas_height, stage);
+        return drawPerspectiveWall(wall_id, canvas_width, canvas_height, stage);
+      }
+
+      function init() {
+        var canvas_height = 500;
+        var canvas_width = 500
+
+        var stage = new createjs.Stage("demoCanvas");
+        drawWall(0, "perspective", canvas_width, canvas_height, stage);
+        drawWall(1, "flat", canvas_width, canvas_height, stage);
+        drawWall(2, "perspective", canvas_width, canvas_height, stage);
+        drawWall(3, "flat", canvas_width, canvas_height, stage);
+        drawWall(4, "flat", canvas_width, canvas_height, stage);
+        drawWall(5, "flat", canvas_width, canvas_height, stage);
+        drawWall(6, "perspective", canvas_width, canvas_height, stage);
+        drawWall(7, "flat", canvas_width, canvas_height, stage);
+
+        //add a bitmap image
+<!--        var ceiling = new createjs.Bitmap("/static/images/dungeon_rock_ceiling.png");-->
+<!--        ceiling.x=-50;-->
+<!--        ceiling.y=0;-->
+<!--        ceiling.scaleX=0.45;-->
+<!--        ceiling.scaleY=0.45;-->
+<!--        stage.addChild(ceiling);-->
+
+<!--        //add a bitmap image-->
+<!--        var floor = new createjs.Bitmap("/static/images/dirt_floor.png");-->
+<!--        floor.x=-70;-->
+<!--        floor.y=260;-->
+<!--        floor.scaleX=.4;-->
+<!--        floor.scaleY=.4;-->
+<!--        stage.addChild(floor);-->
+
+<!--        //add a bitmap image-->
+<!--        var back_wall = new createjs.Bitmap("/static/images/dungeon_wall_texture.png");-->
+<!--        back_wall.x=175;-->
+<!--        back_wall.y=140;-->
+<!--        back_wall.scaleX=.16;-->
+<!--        back_wall.scaleY=.16;-->
+<!--        stage.addChild(back_wall);-->
+
+<!--        //add a bitmap image-->
+<!--        var left_wall = new createjs.Bitmap("/static/images/dungeon_wall_perspective_left.png");-->
+<!--        left_wall.x=0;-->
+<!--        left_wall.y=70;-->
+<!--        left_wall.scaleX=.4;-->
+<!--        left_wall.scaleY=.4;-->
+<!--        stage.addChild(left_wall);-->
+
+<!--        //add a bitmap image-->
+<!--        var right_wall = new createjs.Bitmap("/static/images/dungeon_wall_perspective_right.png");-->
+<!--        right_wall.x=150;-->
+<!--        right_wall.y=70;-->
+<!--        right_wall.scaleX=.4;-->
+<!--        right_wall.scaleY=.4;-->
+<!--        stage.addChild(right_wall);-->
+
+        //add a bouncing ball
+<!--        var circle = new createjs.Shape();-->
+<!--        circle.graphics.beginFill("Crimson").drawCircle(0, 0, 50);-->
+<!--        circle.x = 100;-->
+<!--        circle.y = 100;-->
+<!--        stage.addChild(circle);-->
+<!--        createjs.Tween.get(circle, {loop: true})-->
+<!--          .to({x: 400}, 1000, createjs.Ease.getPowInOut(4))-->
+<!--          .to({alpha: 0, y: 75}, 500, createjs.Ease.getPowInOut(2))-->
+<!--          .to({alpha: 0, y: 125}, 100)-->
+<!--          .to({alpha: 1, y: 100}, 500, createjs.Ease.getPowInOut(2))-->
+<!--          .to({x: 100}, 800, createjs.Ease.getPowInOut(2));-->
+
+        createjs.Ticker.setFPS(30);
+        createjs.Ticker.addEventListener("tick", stage);
+
+        stage.update();
+      }
+
+    </script>
+    <script type="text/javascript">
+    document.onkeydown = function(event) {
+        switch (event.key) {
+           case 'w':
+                alert(event.key + ' pressed');
+              break;
+           case 'a':
+                alert(event.key + ' pressed');
+              break;
+           case 'd':
+                alert(event.key + ' pressed');
+              break;
+           case 'e':
+                alert(event.key + ' pressed');
+              break;
+           case 't':
+                alert(event.key + ' pressed');
+              break;
+           case 'c':
+                alert(event.key + ' pressed');
+              break;
+           case 'l':
+                alert(event.key + ' pressed');
+              break;
+        }
+    };
+
+    </script>
+</head>
+<body class="bg-dark" style="font-family: monospace, monospace;" onload="init();">
+
+
+<div class="container m-2 text-light">
+    <div class="row m-2">
+        <div id="stats_pane" class="col border rounded text-center">
+            {{session["view"]["stats_pane"]}}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div id="view_pane" class="col mr-1 border rounded">
+            <canvas id="demoCanvas" width="500" height="500"></canvas>
+        </div>
+        <div id="info_pane" class="col ml-1 border rounded">
+            <br/>
+            <p class="text-center">
+                {{session["view"]["info_pane"]}}
+            </p>
+        </div>
+    </div>
+    <div class="row m-2">
+        <div id="message_pane" class="col border rounded">
+            {{session["view"]["messages_pane"]}}
+        </div>
+    </div>
+    <div class="row m-2">
+        <div id="commands_pane" class="col border rounded text-center">
+            {{session["view"]["commands_pane"]}}
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

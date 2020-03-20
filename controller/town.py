@@ -46,3 +46,15 @@ def walk_through_the_town(our_hero):
         if next_move.lower() == "l":
             sys.exit("You leave to the edge of town to rest."
                      "")
+
+
+# Function to navigate the town
+def init(our_hero):
+    view = {
+        "stats_pane": common.get_stats(None, our_hero),
+        "messages_pane": "Welcome to the town of Dragonsville!",
+        "view_pane": None,
+        "info_pane": common.list_inventory(our_hero),
+        "commands_pane": town_commands
+    }
+    return view

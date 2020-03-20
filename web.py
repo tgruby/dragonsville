@@ -27,7 +27,7 @@ def root():
     # First time loading the site so we need to load up the session.
     our_hero = common.load_hero()  # Load up our hero.  Auto-creates if we need a new one.
     session['controller'] = "town"  # Start in the town.
-    session['our_hero'] = json.dumps(our_hero)
+    session['our_hero'] = None  # TODO: Need to make the hero serializable
     session['view'] = town.init(our_hero)
     session['splash_screen'] = True  # Show the splash screen.
 
