@@ -43,7 +43,7 @@ def enter_the_map_shop(our_hero):
 def draw_map_list():
     border = "<====================<o>====================>\n"
     response = border
-    response += "  # | Item              | Cost " + '\n'
+    response += "  # | Item                 | Cost " + '\n'
     response += border
     for number, m in enumerate(maps.map_list):
         response += common.front_padding(str(number), 3) + " | " \

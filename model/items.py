@@ -29,75 +29,67 @@ chain_mail_armor = {
 }
 
 bony_fingers = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Bony Fingers",
     "damage": 6,
-    "cost": 0,
+    "cost": 20,
     "attack_message": "%s wraps it's fingers around your throat squeezing and doing %d damage!"
 }
 
 gnome_feet = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Gnome Foot",
     "damage": 4,
-    "cost": 0,
+    "cost": 5,
     "attack_message": "%s kicks at you doing %d damage!"
 }
 
-fists_and_feet = {
-    "type": "weapon",
-    "name": "Fists and Feet",
-    "damage": 4,
-    "cost": 0,
-    "attack_message": "%s slaps and kicks doing %d damage!"
-}
-
 ant_pincers = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Ant Pincers",
     "damage": 4,
-    "cost": 0,
+    "cost": 8,
     "attack_message": "%s bites and saws with its pincers doing %d damage!"
 }
 
 spider_fangs = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Spider Fangs",
     "damage": 6,
-    "cost": 0,
+    "cost": 4,
     "attack_message": "%s sinks it's fangs into you doing %d damage!"
 }
 
 bat_fangs = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Bat Fangs",
     "damage": 8,
-    "cost": 0,
+    "cost": 12,
     "attack_message": "%s sinks it's fangs into you doing %d damage!"
 }
 
 rat_teeth = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Rat Teeth",
     "damage": 4,
-    "cost": 0,
+    "cost": 2,
     "attack_message": "%s sinks it's teeth into you doing %d damage!"
 }
 
 
 wolf_teeth = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Wolf Teeth",
     "damage": 15,
-    "cost": 0,
+    "cost": 7,
     "attack_message": "%s sinks it's teeth into you doing %d damage!"
 }
 
 badger_teeth = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Badger Teeth",
     "damage": 8,
-    "cost": 0,
+    "cost": 14,
     "attack_message": "%s sinks it's teeth into you doing %d damage!"
 }
 
@@ -110,18 +102,18 @@ fireball = {
 }
 
 bee_stinger = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Bee Stinger",
     "damage": 3,
-    "cost": 0,
+    "cost": 10,
     "attack_message": "%s dive and stab you with their stingers dealing %d damage!"
 }
 
 banshee_scream = {
-    "type": "weapon",
+    "type": "loot",
     "name": "Banshee Vocal Cords",
     "damage": 25,
-    "cost": 0,
+    "cost": 80,
     "attack_message": "%s opens it's mouth and screams... the sound chills you to the bone and rips at your " 
                       "soul doing %d damage!"
 }

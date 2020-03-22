@@ -137,7 +137,8 @@ def collapse_inventory_items(our_hero):
                 collapsed_item[0] += 1  # Increment Count
                 item_found = True
         if not item_found:
-            collapsed_item = [1, item["name"], item["type"], item]
+            # Format of list items are: count, name, type, value, item
+            collapsed_item = [1, item["name"], item["type"], item["cost"], item]
             collapsed_items.append(collapsed_item)
 
     return collapsed_items

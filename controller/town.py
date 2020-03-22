@@ -3,13 +3,13 @@ import common
 from view import screen, images
 from controller import dungeon, cartography_shop, equipment_shop, temple, enchantment_shop
 
-town_commands = "(E)quipment, (M)agic, (C)artographer, (T)emple, (D)ungeon, (L)eave Town"
+town_commands = "(E)quipment, (M)agic, (C)artographer, (T)emple, (D)ungeon, (Q)uit"
+town_message = "Enter a shop... or the dungeon if you dare!"
 
 
 # Function to navigate the town
 def walk_through_the_town(our_hero):
     is_leaving_town = False
-    message = "Welcome to the town of Dragonsville! Enter a shop... or the dungeon if you dare!"
     left_pane = images.small_village
 
     while not is_leaving_town:
@@ -22,7 +22,7 @@ def walk_through_the_town(our_hero):
         screen.paint(
             common.get_stats(None, our_hero),
             town_commands,
-            message,
+            town_message,
             left_pane,
             right_pane
         )
@@ -43,16 +43,15 @@ def walk_through_the_town(our_hero):
         if next_move.lower() == "d":
             dungeon.enter_the_dungeon(our_hero)
         # Quit Game
-        if next_move.lower() == "l":
-            sys.exit("You leave to the edge of town to rest."
-                     "")
+        if next_move.lower() == "q":
+            sys.exit("Come back soon, we need you!")
 
 
 # Function to navigate the town
 def init(our_hero):
     view = {
         "stats_pane": common.get_stats(None, our_hero),
-        "messages_pane": "Welcome to the town of Dragonsville!",
+        "messages_pane": town_message,
         "view_pane": None,
         "info_pane": common.list_inventory(our_hero),
         "commands_pane": town_commands

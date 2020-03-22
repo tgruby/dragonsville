@@ -106,7 +106,7 @@ def make_maze(w=16, h=8, dungeon_id=0, is_last=False):
 
 if __name__ == "__main__":
     # Testing
-    maze = make_maze(6, 4, 0, False)
+    maze = make_maze(3, 5, 0, True)
     print(maze.get("map"))
     for row in maze.get("maze"):
         print(row)

@@ -32,7 +32,7 @@ def look_at_inventory(our_hero):
             if item_number_picked > len(items_list):
                 message = "You do not have an item of that number!"
                 continue
-            selected_item = items_list[item_number_picked - 1][3]
+            selected_item = items_list[item_number_picked - 1][4]
             if selected_item["type"] == "weapon":
                 our_hero.equipped_weapon = selected_item
                 message = "You have equipped the %s." % selected_item["name"]

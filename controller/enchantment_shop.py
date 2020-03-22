@@ -2,22 +2,22 @@ from view import screen, images
 import common
 from model import enchantments
 
-commands = "Enter a (#) to ask about an item, (L)eave Shop"
+commands = "Enter a (#) to ask about an item, (S)ell an Item, (L)eave Shop"
 purchase_commands = "Would you like to buy this? (Y)es, (N)o:"
 starter_message = "Welcome to Janet's Enchantments!  Would you like me to use some of your monster " \
               "'treasures' to make you potent elixir for your journeys?"
+border = "<====================<o>====================>\n"
 
 
-# TODO: Create Potions from monster parts to affect the hero
-# TODO: Create Scrolls from monster parts for casting spells to affect monsters
-# TODO: Create weapons and equipment enchantments from monster parts to enhance their abilities
+# TODO: sell monster parts for money
+# TODO: Create Scrolls for casting spells to affect monsters
 
 # This function controls our interactions at the weapons store
 def enter_the_shop(our_hero):
     is_leaving_the_shop = False
     message = starter_message
     left_pane = images.shop
-    right_pane = draw_list()
+    right_pane = draw_purchase_list()
     commands_pane = commands
     item = None
 
@@ -32,6 +32,8 @@ def enter_the_shop(our_hero):
         next_move = input("Next? ")
         if next_move.lower() == 'l':
             is_leaving_the_shop = True
+        if next_move.lower() == 's':
+            sell_items(our_hero)
         elif next_move.isdigit():
             item_number_picked = int(next_move)
             # Change this to enchantment objects
@@ -46,8 +48,6 @@ def enter_the_shop(our_hero):
                 message = "You don't have enough money for that!"
             else:
                 our_hero.gold -= item["cost"]
-                # TODO: This is where we need to add logic to take away monster parts from our hero, and give
-                #  them the enchanted item.
                 our_hero.inventory.append(item)
                 message = "You have purchased the %s." % item["name"]
                 commands_pane = commands
@@ -55,9 +55,45 @@ def enter_the_shop(our_hero):
             commands_pane = commands
             message = starter_message
 
-def draw_list():
-    # TODO: This entire list needs to be updated
-    border = "<====================<o>====================>\n"
+
+# This function controls our interactions at the weapons store
+def sell_items(our_hero):
+    is_done_selling = False
+    message = "Wonderful, we have been running low on hard to get items for our spells and potions!  What are you " \
+              "willing to part with? "
+    left_pane = images.shop
+    commands_pane = "Enter a (#) to sell an item, or go (L)eave."
+
+    while not is_done_selling:
+        screen.paint(
+            common.get_stats(None, our_hero),
+            commands_pane,
+            message,
+            left_pane,
+            draw_sell_list(our_hero)
+        )
+        next_move = input("Next? ")
+        if next_move.lower() == 'l':
+            is_done_selling = True
+        elif next_move.isdigit():
+            item_number_picked = int(next_move)
+            items_list = common.collapse_inventory_items(our_hero)
+            if item_number_picked > len(items_list)-1 or item_number_picked < 0:
+                message = "You do not have an item of that number!"
+            else:
+                selected_item = items_list[item_number_picked][4]
+                if selected_item["type"] == "loot":
+                    our_hero.gold += selected_item["cost"]
+                    our_hero.inventory.remove(selected_item)
+                    message = "You sold %s for %d gold." % (selected_item["name"], selected_item["cost"])
+                else:
+                    message = "You cannot sell that item here!"
+        elif next_move.lower() == 'n':
+            commands_pane = commands
+            message = starter_message
+
+
+def draw_purchase_list():
     response = border
     response += "  # | Item                  | Type   | Cost " + '\n'
     response += border
@@ -66,5 +102,19 @@ def draw_list():
                     + common.back_padding(e["name"], 21) + " | " \
                     + common.front_padding(str(e["type"]), 6) + " | " \
                     + common.front_padding(str(e["cost"]), 4) + '\n'
+    response += border
+    return response
+
+
+def draw_sell_list(our_hero):
+    items = common.collapse_inventory_items(our_hero)
+    response = border
+    response += "  # | Items            | Type   | Value " + '\n'
+    response += border
+    for num, item in enumerate(items):
+        response += common.front_padding(str(num), 3) + " | " \
+                    + common.back_padding(str(item[0]) + " " + item[1], 16) + " | " \
+                    + common.front_padding(str(item[2]), 6) + " | " \
+                    + common.front_padding(str(item[3]), 4) + '\n'
     response += border
     return response

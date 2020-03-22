@@ -3,6 +3,7 @@ import logging
 from view import images
 from model import characters
 from controller import town
+from model import items
 
 # TODO: Add web-based, so we can be more dynamic images than ascii art
 # TODO: Add Alchemy Shop: exchange monster parts + gold for potions
@@ -42,6 +43,13 @@ def main():
     if our_hero is None:
         name = input("What can we call you, hero? ")
         our_hero = characters.Character(characters.warrior)
+        our_hero.inventory.append(items.wolf_teeth)
+        our_hero.inventory.append(items.wolf_teeth)
+        our_hero.inventory.append(items.bat_fangs)
+        our_hero.inventory.append(items.ant_pincers)
+        our_hero.inventory.append(items.ant_pincers)
+        our_hero.inventory.append(items.ant_pincers)
+        our_hero.inventory.append(items.ant_pincers)
         our_hero.name = name
     else:
         input("Welcome back, %s! We have been waiting for you!" % our_hero.name)
