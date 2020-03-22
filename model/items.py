@@ -31,7 +31,7 @@ chain_mail_armor = {
 bony_fingers = {
     "type": "loot",
     "name": "Bony Fingers",
-    "damage": 6,
+    "damage": 40,
     "cost": 20,
     "attack_message": "%s wraps it's fingers around your throat squeezing and doing %d damage!"
 }
@@ -63,7 +63,7 @@ spider_fangs = {
 bat_fangs = {
     "type": "loot",
     "name": "Bat Fangs",
-    "damage": 8,
+    "damage": 35,
     "cost": 12,
     "attack_message": "%s sinks it's fangs into you doing %d damage!"
 }
@@ -80,7 +80,7 @@ rat_teeth = {
 wolf_teeth = {
     "type": "loot",
     "name": "Wolf Teeth",
-    "damage": 15,
+    "damage": 30,
     "cost": 7,
     "attack_message": "%s sinks it's teeth into you doing %d damage!"
 }
@@ -97,7 +97,7 @@ fireball = {
     "type": "weapon",
     "name": "Fireball",
     "damage": 150,
-    "cost": 0,
+    "cost": 500,
     "attack_message": "%s rears back and vomits a molten fireball at your head burning you for %d damage!"
 }
 
@@ -112,7 +112,7 @@ bee_stinger = {
 banshee_scream = {
     "type": "loot",
     "name": "Banshee Vocal Cords",
-    "damage": 25,
+    "damage": 120,
     "cost": 80,
     "attack_message": "%s opens it's mouth and screams... the sound chills you to the bone and rips at your " 
                       "soul doing %d damage!"

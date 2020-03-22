@@ -128,7 +128,7 @@ wolf = {
     "type": "monster",
     "level": 11,
     "image": images.wolf,
-    "max_hit_points": 25,
+    "max_hit_points": 50,
     "max_gold": 10,
     "weapon": items.wolf_teeth
 }
@@ -138,17 +138,17 @@ goblin = {
     "type": "monster",
     "level": 12,
     "image": images.goblin,
-    "max_hit_points": 20,
-    "max_gold": 22,
-    "weapon": items.club
+    "max_hit_points": 40,
+    "max_gold": 60,
+    "weapon": items.broad_sword
 }
 skeleton = {
     "name": "Skeleton",
     "type": "monster",
     "level": 13,
     "image": images.skeleton,
-    "max_hit_points": 15,
-    "max_gold": 25,
+    "max_hit_points": 75,
+    "max_gold": 50,
     "weapon": items.bony_fingers
 }
 
@@ -157,8 +157,8 @@ vampire_bat_swarm = {
     "type": "monster",
     "level": 14,
     "image": images.vampire_bat,
-    "max_hit_points": 15,
-    "max_gold": 10,
+    "max_hit_points": 60,
+    "max_gold": 45,
     "weapon": items.bat_fangs
 }
 
@@ -167,9 +167,9 @@ skeleton_warrior = {
     "type": "monster",
     "level": 23,
     "image": images.skeleton_warrior,
-    "max_hit_points": 35,
-    "max_gold": 45,
-    "weapon": items.battle_axe
+    "max_hit_points": 150,
+    "max_gold": 85,
+    "weapon": items.elvin_sword
 }
 
 half_orc = {
@@ -177,9 +177,9 @@ half_orc = {
     "type": "monster",
     "level": 28,
     "image": images.half_orc,
-    "max_hit_points": 50,
-    "max_gold": 75,
-    "weapon": items.battle_axe
+    "max_hit_points": 200,
+    "max_gold": 200,
+    "weapon": items.elvin_sword
 }
 
 banshee = {
@@ -187,8 +187,8 @@ banshee = {
     "type": "monster",
     "level": 32,
     "image": images.banshee,
-    "max_hit_points": 60,
-    "max_gold": 80,
+    "max_hit_points": 250,
+    "max_gold": 250,
     "weapon": items.banshee_scream
 }
 
@@ -197,9 +197,9 @@ minotaur = {
     "type": "monster",
     "level": 35,
     "image": images.minotaur,
-    "max_hit_points": 100,
-    "max_gold": 150,
-    "weapon": items.battle_axe
+    "max_hit_points": 350,
+    "max_gold": 350,
+    "weapon": items.dragonbane
 }
 
 red_dragon = {

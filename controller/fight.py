@@ -38,6 +38,8 @@ def fight_a_monster(our_hero, monster, view):
                     hero_is_slain(our_hero, view, message)
             else:
                 # Monster has been killed
+                if monster.name == "Red Dragon":
+                      dragon_killed(our_hero)
                 # Grab Gold
                 our_hero.gold += monster.gold
                 right_center_pane = images.treasure_chest
@@ -48,10 +50,6 @@ def fight_a_monster(our_hero, monster, view):
                     message = message + " The monster has dropped " + monster.weapon["name"] + "!"
                 message = message + " Digging through the %s remains you found %d gold!" % (monster.name, monster.gold)
                 commands = "Press Enter to continue..."
-                if monster.name == "Red Dragon":
-                    our_hero.killed_dragon = True
-                    message += " You have vanquished the dragon!!! You will be if you get out alive!"
-
                 is_attack_finished = True
 
         # Run Away
@@ -86,4 +84,14 @@ def hero_is_slain(our_hero, view, message):
         view.generate_perspective(),
         images.death
     )
+    sys.exit()
+
+
+# routine to run if your hero kills the dragon
+def dragon_killed(our_hero):
+    common.save_hero(our_hero)  # Save our Hero file so they can continue to play with the hero if they want
+    print(images.castle)
+    print("You have slain the dragon!!! The village rejoices, the dungeons slowly empty of monsters and return ")
+    print("to the profitable gold mines they once were.  You are made king over all the local lands and reign for")
+    print("many peaceful years.  Congratulations $s!!!")
     sys.exit()
