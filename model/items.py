@@ -95,9 +95,9 @@ badger_teeth = {
 
 fireball = {
     "type": "weapon",
-    "name": "Fireball",
+    "name": "Dragon Heart",
     "damage": 150,
-    "cost": 500,
+    "cost": 1000,
     "attack_message": "%s rears back and vomits a molten fireball at your head burning you for %d damage!"
 }
 

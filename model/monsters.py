@@ -207,7 +207,7 @@ red_dragon = {
     "type": "monster",
     "level": 99,
     "image": images.dragon,
-    "max_hit_points": 1000,
+    "max_hit_points": 750,
     "max_gold": 2000,
     "weapon": items.fireball
 }
