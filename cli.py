@@ -4,11 +4,11 @@ from view import images
 from model import characters
 from controller import town
 
-# TODO: Add traps + treasures in dead-ends of maze
-# TODO: Add rooms
-# TODO: Allow for multiple monster attacks at the same time
+# TODO: Add traps in maze
 # TODO: Add "guardians" that guard staircases going down to the next level
 # TODO: Add the ability to "sense" coming up on monster guardians the square before.
+# TODO: Add rooms
+# TODO: Allow for multiple monster attacks at the same time
 # TODO: Allow to create multiple characters, different races
 
 
