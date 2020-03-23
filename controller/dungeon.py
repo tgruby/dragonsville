@@ -93,7 +93,7 @@ def check_for_treasure(our_hero, left_pane, view):
             # Check to see if there is a weapon in the treasure chest. If so, put it in the hero's inventory.
             drop_weapon = random.randint(0, 5)  # 17%
             if drop_weapon == 0:
-                weapon = items.equipment_treasure_drop[random.randint(0, len(items.equipment_treasure_drop) - 1)]
+                weapon = items.equipment_list[random.randint(0, len(items.equipment_list) - 1)]
                 our_hero.inventory.append(weapon)
                 message += " You find a %s in the chest!" % weapon["name"]
             commands = "Press Enter to continue..."
