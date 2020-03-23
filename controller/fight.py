@@ -82,7 +82,7 @@ def hero_is_slain(our_hero, view, message):
     our_hero.hit_points = 4
     if our_hero.gold > 10:
         our_hero.gold = 4
-
+    common.save_hero(our_hero)
     screen.paint(
         common.get_stats(view, our_hero),
         "restart the game",
