@@ -1,5 +1,6 @@
 import sys
 import common
+import readchar
 import random
 import logging
 from view import screen, images
@@ -26,7 +27,7 @@ def fight_a_monster(our_hero, monster, view):
         )
         if not our_hero.is_alive():
             sys.exit()
-        next_move = input("Next? ")
+        next_move = readchar.readkey()
         if next_move.lower() == "f":
             log.info("%s has %d hit points before being attacked." % (monster.name, monster.hit_points))
             message = our_hero.attack(monster)

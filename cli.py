@@ -3,17 +3,13 @@ import logging
 from view import images
 from model import characters
 from controller import town
-from model import items
 
-# TODO: Add web-based, so we can be more dynamic images than ascii art
-# TODO: Add Alchemy Shop: exchange monster parts + gold for potions
-# TODO: Add traps
-# TODO: Allow for multiple monster attacks at the same time
+# TODO: Add traps + treasures in dead-ends of maze
 # TODO: Add rooms
-# TODO: Add "guardians" that guard staircases going up and down
+# TODO: Allow for multiple monster attacks at the same time
+# TODO: Add "guardians" that guard staircases going down to the next level
 # TODO: Add the ability to "sense" coming up on monster guardians the square before.
-# TODO: Allow to create multiple characters
-# TODO: Move Monsters+ to individual external files including level guides to allow for independent creation and loading
+# TODO: Allow to create multiple characters, different races
 
 
 # Main function that starts the game.

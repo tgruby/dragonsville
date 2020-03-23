@@ -2,6 +2,7 @@
 # interactions between the user and the computer.  This is where we will put all of our controller code.
 
 import common
+import readchar
 import random
 from view import physics, screen
 from model import monsters
@@ -36,7 +37,7 @@ def enter_the_dungeon(our_hero):
             left_pane,
             right_pane
         )
-        next_move = input("Next? ")
+        next_move = readchar.readkey()
         # Turn Left
         if next_move.lower() == "a":
             message = view.turn_left()
