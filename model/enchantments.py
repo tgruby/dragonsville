@@ -28,7 +28,7 @@ class EnchantedItem:
 # Dictionaries of all enchantments in the Game
 
 health_potion = {
-    "name": "Healing Potion",
+    "name": "Simple Healing Potion",
     "description": "This potion will refresh you, making you feel ready for the next battle.",
     "type": "potion",
     "max_hit_points": 25,
@@ -37,16 +37,16 @@ health_potion = {
 }
 
 gandalfs_granola = {
-    "name": "Gandalf's Granola",
+    "name": "Gandalf's Healing Granola",
     "description": "This Granola bar will make you feel young again, like Gandolf!",
     "type": "potion",
-    "max_hit_points": 50,
+    "max_hit_points": 100,
     "affects": "character",
-    "cost": 100
+    "cost": 75
 }
 
 super_scroll= {
-    "name": "Quake Scroll",
+    "name": "Earthquake Scroll",
     "description": "This Scroll, when read, creates an earthquake sending stone and debris down onto the head of your "
                    "foes. ",
     "type": "scroll",

@@ -2,15 +2,13 @@ from view import screen, images
 import common
 from model import enchantments
 
-commands = "Enter a (#) to ask about an item, (S)ell an Item, (L)eave Shop"
-purchase_commands = "Would you like to buy this? (Y)es, (N)o:"
+commands = "Enter a (#) to purchase an item, (S)ell an Item, (L)eave Shop"
 starter_message = "Welcome to Janet's Enchantments!  Would you like me to use some of your monster " \
               "'treasures' to make you potent elixir for your journeys?"
 border = "<====================<o>====================>\n"
 
 
-# TODO: sell monster parts for money
-# TODO: Create Scrolls for casting spells to affect monsters
+# TODO: Create more Scrolls for casting spells to affect monsters
 
 # This function controls our interactions at the weapons store
 def enter_the_shop(our_hero):
@@ -36,24 +34,15 @@ def enter_the_shop(our_hero):
             sell_items(our_hero)
         elif next_move.isdigit():
             item_number_picked = int(next_move)
-            # Change this to enchantment objects
             if item_number_picked < len(enchantments.all_enchantments):
                 item = enchantments.all_enchantments[item_number_picked]
-                commands_pane = purchase_commands
-                message = "Oh, a fine %s.  %s" % (item["name"], item["description"])
-            else:
-                message = "There is no item of that number!"
-        elif next_move.lower() == 'y':
-            if our_hero.gold < item["cost"]:
-                message = "You don't have enough money for that!"
-            else:
-                our_hero.gold -= item["cost"]
-                our_hero.inventory.append(item)
-                message = "You have purchased the %s." % item["name"]
-                commands_pane = commands
-        elif next_move.lower() == 'n':
-            commands_pane = commands
-            message = starter_message
+                if our_hero.gold < item["cost"]:
+                    message = "You don't have enough money for that!"
+                else:
+                    our_hero.gold -= item["cost"]
+                    our_hero.inventory.append(item)
+                    message = "You have purchased the %s." % item["name"]
+                    commands_pane = commands
 
 
 # This function controls our interactions at the weapons store
@@ -95,12 +84,11 @@ def sell_items(our_hero):
 
 def draw_purchase_list():
     response = border
-    response += "  # | Item                  | Type   | Cost " + '\n'
+    response += "  # | Item                           | Cost " + '\n'
     response += border
     for number, e in enumerate(enchantments.all_enchantments):
         response += common.front_padding(str(number), 3) + " | " \
-                    + common.back_padding(e["name"], 21) + " | " \
-                    + common.front_padding(str(e["type"]), 6) + " | " \
+                    + common.back_padding(e["name"], 30) + " | " \
                     + common.front_padding(str(e["cost"]), 4) + '\n'
     response += border
     return response

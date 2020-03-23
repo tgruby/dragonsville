@@ -102,7 +102,7 @@ def draw_buy_list():
                     + common.back_padding(e["name"], 12) + " | " \
                     + common.front_padding(str(e["type"]), 6) + " | " \
                     + common.front_padding(str(e["damage"]), 3) + " | " \
-                    + common.front_padding(str(e["cost"]), 4) + '\n'
+                    + common.front_padding(str(round(e["cost"])), 4) + '\n'
     response += border
     return response
 
@@ -116,6 +116,6 @@ def draw_sell_list(our_hero):
         response += common.front_padding(str(num), 3) + " | " \
                     + common.back_padding(str(item[0]) + " " + item[1], 16) + " | " \
                     + common.front_padding(str(item[2]), 6) + " | " \
-                    + common.front_padding(str(item[3]/2), 4) + '\n'
+                    + common.front_padding(str(round(item[3]/2)), 4) + '\n'
     response += border
     return response

@@ -27,9 +27,9 @@ class Monster:
         # Calculate Damage prevented by protection
         protection = 0
         if character.equipped_armor is not None:
-            protection += random.randint(0, -character.equipped_armor["damage"])
+            protection += random.randint(1, -character.equipped_armor["damage"])
         if character.equipped_shield is not None:
-            protection += random.randint(0, -character.equipped_shield["damage"])
+            protection += random.randint(1, -character.equipped_shield["damage"])
         damage = damage - protection
         # Prevent damage from being negative (healing the hero)
         if damage < 0:
