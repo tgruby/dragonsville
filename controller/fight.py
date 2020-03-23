@@ -35,7 +35,7 @@ def fight_a_monster(our_hero, monster, view):
             if monster.is_alive():
                 message = message + '\n ' + monster.attack(our_hero)
                 if not our_hero.is_alive():
-                    message = message + '\n ' + "You have been Slain! Better luck in your next life!"
+                    message = message + '\n ' + "You have been Slain! ... or have you?  You come too and the %s is gone, with most of your gold.  You somehow crawl out of the dungeon..." % monster.name
                     hero_is_slain(our_hero, view, message)
             else:
                 # Monster has been killed
@@ -76,8 +76,13 @@ def fight_a_monster(our_hero, monster, view):
 
 # routine to run if your hero is slain
 def hero_is_slain(our_hero, view, message):
-    common.delete_hero()  # Delete our Hero file so we have to create a new hero
-    common.delete_dungeons()  # Reset the dungeons so we have to learn new dungeons with our new hero
+    # Too Cruel, and less fun. Reset the character to a beat up state back in the town.
+    # common.delete_hero()  # Delete our Hero file so we have to create a new hero
+    # common.delete_dungeons()  # Reset the dungeons so we have to learn new dungeons with our new hero
+    our_hero.hit_points = 4
+    if our_hero.gold > 10:
+        our_hero.gold = 4
+
     screen.paint(
         common.get_stats(view, our_hero),
         "restart the game",
