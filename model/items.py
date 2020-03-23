@@ -213,3 +213,16 @@ equipment_list = [
     heater,
     buckler
 ]
+
+equipment_treasure_drop = [
+    battle_axe,
+    war_hammer,
+    trident,
+    short_sword,
+    club,
+    dagger,
+    chain_mail_armor,
+    leather_armor,
+    heater,
+    buckler
+]

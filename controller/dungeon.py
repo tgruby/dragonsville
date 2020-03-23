@@ -4,8 +4,8 @@
 import common
 import readchar
 import random
-from view import physics, screen
-from model import monsters
+from view import physics, screen, images
+from model import monsters, items
 from controller import inventory
 from controller import fight
 
@@ -24,6 +24,8 @@ def enter_the_dungeon(our_hero):
     is_leaving_dungeon = False
     while not is_leaving_dungeon:
         left_pane = view.generate_perspective()
+        # Check to see if the character is in a dead-end.  If so, reward (first time only) them with a chest of gold.
+        check_for_treasure(our_hero, left_pane, view)
         if next_move != 'i':  # If the user has selected to see inventory, show that instead of the map.
             if has_map(our_hero, view.current_dungeon_id):
                 right_pane = view.current_dungeon_map
@@ -70,3 +72,36 @@ def has_map(our_hero, dungeon_id):
             if i["number"] == dungeon_id and i["type"] == "map":
                 return True
     return False
+
+
+def check_for_treasure(our_hero, left_pane, view):
+    if left_pane == getattr(images, "dungeon_WHW_WWW"):
+        # Save picked_up_treasure to a pkl file so doesn't reset after a restart.
+        collected_treasure = common.load("collected_treasure")
+        if collected_treasure is None:
+            collected_treasure = []
+        location = str(view.current_dungeon_id) + '-' + str(view.current_x) + "-" + str(view.current_x)
+        if location not in collected_treasure:
+            collected_treasure.append(location)
+            common.save("collected_treasure", collected_treasure)
+            max_gold = (view.current_dungeon_id + 1) * 20
+            treasure = random.randint(1, max_gold)
+            our_hero.gold += treasure
+            right_center_pane = images.treasure_chest
+            message = " You have found a treasure chest with %d gold in it!" % treasure
+            # Check to see if there is a weapon in the treasure chest. If so, put it in the hero's inventory.
+            drop_weapon = random.randint(0, 9)  # 10%
+            if drop_weapon == 0:
+                weapon = items.equipment_treasure_drop[random.randint(0, len(items.equipment_treasure_drop) - 1)]
+                our_hero.inventory.append(weapon)
+                message += " You find a %s in the chest!" % weapon["name"]
+            commands = "Press Enter to continue..."
+            # Attack is finished, paint results screen and pause
+            screen.paint(
+                common.get_stats(view, our_hero),
+                commands,
+                message,
+                left_pane,
+                right_center_pane
+            )
+            input("")
