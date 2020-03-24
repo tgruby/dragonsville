@@ -33,3 +33,4 @@ Also, special thanks to Jacob, Evan, and Emma for the many hours programming fun
 <=====================================<o>======================================>
 Next?  
 ```
+Requires Python 3.x and readchar lib.
