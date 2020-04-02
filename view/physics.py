@@ -1,7 +1,7 @@
 import logging
 from model import monsters
-from controller import fight
-from view import dungeon_creator, screen, images
+from controller import fight, dungeon
+from view import dungeon_creator, screen, images, perspectives
 
 log = logging.getLogger('dragonsville')
 
@@ -20,6 +20,7 @@ class PointOfView:
     door = 'D'
     doorway_up = '^'
     doorway_down = 'v'
+    treasure = 'T'
     x_marks_the_spot = 'X'
 
     # Direction Keys
@@ -105,13 +106,24 @@ class PointOfView:
         [far_left_block, far_center_block, far_right_block]
     ]
 
+    perspective_map = {
+        "left_0": "a",
+        "left_1": "b",
+        "left_2": "c",
+        "center_1": "d",
+        "center_2": "e",
+        "center_3": "f",
+        "right_2": "g",
+        "right_1": "h",
+        "right_0": "i",
+    }
+
     current_dungeon_id = 0
     current_dungeon = None
     current_dungeon_map = None
     current_x = 0
     current_y = 0
     current_direction = north
-    current_image = None
 
     dungeons = None
 
@@ -122,12 +134,11 @@ class PointOfView:
         self.current_dungeon_map = self.dungeons[dungeon_id]["map"]
         self.current_direction = direction
         self.our_hero = our_hero
-        self.current_image = None
 
         # We assume on instantiation that we came "down" into the dungeon.
         # So we need to find the up door in this dungeon by scanning the 2d array
-        for i in range(len(self.current_dungeon)-1):
-            for j in range(len(self.current_dungeon[0])-1):
+        for i in range(len(self.current_dungeon) - 1):
+            for j in range(len(self.current_dungeon[0]) - 1):
                 if self.current_dungeon[i][j] == self.doorway_up:
                     self.current_y = i
                     self.current_x = j + 1
@@ -140,55 +151,48 @@ class PointOfView:
         x = self.current_x
         y = self.current_y
         # Positions should be listed in order of nearest left, nearest right, second nearest left...
-        pos = []
+        obstructions = []
 
         visible_limit = False
+
         for i, block_range in enumerate(self.blocks):
             # Ignore the Door (treat it as a Hall) if we are standing in the doorway.
             ignore_door = False
             if i is 0:
                 ignore_door = True
-            left_block = self.get_value_at_block(d, x, y, False, block_range[0])
-            center_block = self.get_value_at_block(d, x, y, ignore_door, block_range[1])
-            right_block = self.get_value_at_block(d, x, y, False, block_range[2])
-            pos.append('_')
-            pos.append(left_block)
-            pos.append(center_block)
-            pos.append(right_block)
-            if i != 0 and (center_block is self.wall or center_block is self.door):
+            left_obstruction = self.get_value_at_block(d, x, y, False, block_range[0])
+            center_obstruction = self.get_value_at_block(d, x, y, ignore_door, block_range[1])
+            right_obstruction = self.get_value_at_block(d, x, y, False, block_range[2])
+
+            if i != 0 and (center_obstruction == self.wall or center_obstruction == self.door):
+                obstructions.append("block_" + self.perspective_map.get("center_" + str(i)) + '_' + center_obstruction)
                 visible_limit = True
                 break
+            else:
+                obstructions.append("block_" + self.perspective_map.get("left_" + str(i)) + '_' + left_obstruction)
+                obstructions.append("block_" + self.perspective_map.get("right_" + str(i)) + '_' + right_obstruction)
 
         # If we have visibility out all 3 blocks, check to see if our end block is a hall or a wall.
-        if not visible_limit and len(pos) is 12:
-            pos.append('_')
-            pos.append(self.get_value_at_block(d, x, y, False, self.distant_center_block))
+        if not visible_limit:
+            distant_center = self.get_value_at_block(d, x, y, False, self.distant_center_block)
+            obstructions.append("block_" + self.perspective_map.get("center_" + str(3)) + '_' + distant_center)
 
-        image_file = "dungeon"
-        for p in pos:
-            image_file = image_file + p
-
-        self.current_image = image_file
+        image_file = perspectives.build_view(obstructions)
         self.update_map()  # Don't forget to update the map
+        return image_file
 
-        try:
-            return getattr(images, image_file)
-
-        except:
-            return images.missing_file + '\n   Missing Image:\n' + image_file
-
-    # Return what we find in this block: wall, hallway, door, up-ladder, down-ladder
+    # Return what we find in this block: wall, hallway, door ignoring variations
     def get_value_at_block(self, direction, x, y, ignore_door, block):
         try:
             x1 = block[direction]['x']
             y1 = block[direction]['y']
             value = self.current_dungeon[y + y1][x + x1]
-            if value == self.doorway_down or value == self.doorway_up:
+            if value == self.doorway_down or value == self.doorway_up or value == self.door:
                 if ignore_door:
                     return self.hallway
                 else:
                     return self.door
-            if value == self.hallway_1 or value == self.x_marks_the_spot:
+            if value == self.hallway_1 or value == self.x_marks_the_spot or value == self.treasure:
                 return self.hallway
             elif value == self.wall_1 or value == self.wall_2 or value == self.wall_3:
                 return self.wall
@@ -229,15 +233,19 @@ class PointOfView:
         if value == self.hallway_1 or \
                 value == self.doorway_up or \
                 value == self.doorway_down or \
+                value == self.door or \
+                value == self.treasure or \
                 value == self.x_marks_the_spot:
             self.current_y += y1
             self.current_x += x1
-            if self.current_dungeon[self.current_y][self.current_x] == self.x_marks_the_spot:
+            if value == self.x_marks_the_spot:
                 fight.fight_a_monster(self.our_hero, monsters.Monster(monsters.red_dragon), self)
             if value == self.doorway_up:
                 return self.climb_up()
             if value == self.doorway_down:
                 return self.climb_down()
+            if value == self.treasure:
+                dungeon.check_for_treasure_callback(self.our_hero, self)
             return "You move one space " + self.get_direction() + "."
         else:
             return "You can't walk through walls!"
