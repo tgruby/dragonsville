@@ -113,7 +113,7 @@ block_b_H = \
     \n\
     \n\
     \n\
-__  \n\
+___ \n\
   | \n\
   | \n\
   | \n\
@@ -384,7 +384,7 @@ block_i_H = \
 "      \n\
       \n\
       \n\
- ____ \n\
+_____ \n\
 |     \n\
 |     \n\
 |     \n\
@@ -429,7 +429,7 @@ block_h_H = \
      \n\
      \n\
      \n\
- ___ \n\
+____ \n\
 |    \n\
 |    \n\
 |    \n\
@@ -534,9 +534,8 @@ def build_view(image_parts):
     ordered_parts = sorted(image_parts)
 
     prep_buff = []
-    finished_buff = []
+    finished = []
     for part_name in ordered_parts:
-        print("Part Name: " + part_name)
         # Get the image from the name
         part = getattr(sys.modules[__name__], part_name)
         # Convert Image into rows of strings
@@ -546,10 +545,10 @@ def build_view(image_parts):
         line = ''
         for prepped_part in prep_buff:
             line += prepped_part[index][:-1]
-        finished_buff.append(line)
+        finished.append(line)
 
     finished_image = ''
-    for line in finished_buff:
+    for line in finished:
         finished_image += line + '\n'
     return finished_image
 
