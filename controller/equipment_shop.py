@@ -70,7 +70,7 @@ def sell_items(our_hero):
             is_done_selling = True
         elif next_move.isdigit():
             item_number_picked = int(next_move)
-            items_list = common.collapse_inventory_items(our_hero)
+            items_list = filtered_sell_list(our_hero)
             if item_number_picked > len(items_list)-1 or item_number_picked < 0:
                 message = "You do not have an item of that number!"
             else:
@@ -93,6 +93,7 @@ def sell_items(our_hero):
             commands_pane = commands
             message = starter_message
 
+
 def draw_buy_list():
     response = border
     response += "  # | Item         | Type   | Dmg | Cost " + '\n'
@@ -108,7 +109,7 @@ def draw_buy_list():
 
 
 def draw_sell_list(our_hero):
-    items = common.collapse_inventory_items(our_hero)
+    items = filtered_sell_list(our_hero)
     response = border
     response += "  # | Items            | Type   | Value " + '\n'
     response += border
@@ -119,3 +120,14 @@ def draw_sell_list(our_hero):
                     + common.front_padding(str(round(item[3]/2)), 4) + '\n'
     response += border
     return response
+
+
+# Create a Filtered list of only items we can sell in the equipment shop
+def filtered_sell_list(our_hero):
+    filtered_list = []
+    items_list = common.collapse_inventory_items(our_hero)
+    for item in items_list:
+        if item[2] == "weapon" or item[2] == "shield" or item[2] == "armor":
+            filtered_list.append(item)
+
+    return filtered_list
