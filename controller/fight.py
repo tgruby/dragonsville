@@ -6,8 +6,8 @@ import logging
 from view import screen, images
 
 log = logging.getLogger('dragonsville')
-fight_commands = "(F)ight, (R)un away!"
-
+fight_commands = "(F)ight, (U)se item, (R)un away!"
+border = "<====================<o>====================>\n"
 
 # This Function is to attack a monster. This includes the loop to continue to attack until someone dies, or our hero
 # runs away.
@@ -52,7 +52,8 @@ def fight_a_monster(our_hero, monster, view):
                 message = message + " Digging through the %s remains you found %d gold!" % (monster.name, monster.gold)
                 commands = "Press Enter to continue..."
                 is_attack_finished = True
-
+        if next_move.lower() == "u":
+            use_item(our_hero, view, monster)
         # Run Away
         if next_move.lower() == "r":
             # The monster gets one last parting shot as you flee.
@@ -72,6 +73,69 @@ def fight_a_monster(our_hero, monster, view):
         right_center_pane
     )
     input("")
+
+
+def use_item(our_hero, view, monster):
+    is_done_using = False
+    message = "Use which item?"
+    left_pane = view.generate_perspective()
+    commands_pane = "Enter a (#) to use an item, or (C)ancel."
+
+    while not is_done_using:
+        screen.paint(
+            common.get_stats(None, our_hero),
+            commands_pane,
+            message,
+            left_pane,
+            draw_use_list(our_hero)
+        )
+        next_move = input("Next? ")
+        if next_move.lower() == 'c':
+            is_done_using = True
+        elif next_move.isdigit():
+            item_number_picked = int(next_move)
+            items_list = filtered_use_list(our_hero)
+            if item_number_picked > len(items_list)-1 or item_number_picked < 0:
+                message = "You do not have an item of that number!"
+            else:
+                selected_item = items_list[item_number_picked][4]
+                if selected_item["type"] == "scroll":
+                    damage = random.randint(10,selected_item["max_hit_points"])
+                    monster.hit_points = monster.hit_points - damage
+                    our_hero.inventory.remove(selected_item)
+                    message = selected_item["description"] % (monster.name, damage)
+                elif selected_item["type"] == "potion":
+                    healing = random.randint(10, selected_item["max_hit_points"])
+                    our_hero.hit_points = our_hero.hit_points + healing
+                    our_hero.inventory.remove(selected_item)
+                    message = selected_item["description"]
+                else:
+                    message = "You cannot use that item here!"
+
+
+def draw_use_list(our_hero):
+    items = filtered_use_list(our_hero)
+    response = border
+    response += "  # | Items            | Type   | Value " + '\n'
+    response += border
+    for num, item in enumerate(items):
+        response += common.front_padding(str(num), 3) + " | " \
+                    + common.back_padding(str(item[0]) + " " + item[1], 16) + " | " \
+                    + common.front_padding(str(item[2]), 6) + " | " \
+                    + common.front_padding(str(round(item[3]/2)), 4) + '\n'
+    response += border
+    return response
+
+
+# Create a Filtered list of only items we can sell in the equipment shop
+def filtered_use_list(our_hero):
+    filtered_list = []
+    items_list = common.collapse_inventory_items(our_hero)
+    for item in items_list:
+        if item[2] == "potion" or item[2] == "scroll":
+            filtered_list.append(item)
+
+    return filtered_list
 
 
 # routine to run if your hero is slain

@@ -29,7 +29,7 @@ class EnchantedItem:
 
 health_potion = {
     "name": "Simple Healing Potion",
-    "description": "This potion will refresh you, making you feel ready for the next battle.",
+    "description": "You drank the potion and it makes you feel funny.",
     "type": "potion",
     "max_hit_points": 25,
     "affects": "character",
@@ -38,11 +38,11 @@ health_potion = {
 
 gandalfs_granola = {
     "name": "Gandalf's Healing Granola",
-    "description": "This Granola bar will make you feel young again, like Gandolf!",
+    "description": "You munch on Gandalf's Granola and begin to grow a beard, like Gandolf!",
     "type": "potion",
     "max_hit_points": 100,
     "affects": "character",
-    "cost": 75
+    "cost": 1
 }
 
 super_scroll= {
@@ -55,8 +55,18 @@ super_scroll= {
     "cost": 500
 }
 
+lightning_scroll= {
+    "name": "lightning",
+    "description": " You read the scroll a lightning bolt shoots out hitting the %s for %d! ",
+    "type": "scroll",
+    "max_hit_points": 100,
+    "affects": "character",
+    "cost": 1
+}
+
 all_enchantments = [
     health_potion,
     gandalfs_granola,
-    super_scroll
+    super_scroll,
+    lightning_scroll
 ]
