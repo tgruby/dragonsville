@@ -30,7 +30,6 @@ Also, special thanks to Jacob, Evan, and Emma for the many hours programming fun
 |  You move one space South.                                                   |
 <================================< Commands >==================================>
 |        Left (A), Right (D), Forward (W), (U)p, Down (J), (I)nventory         |
-<=====================================<o>======================================>
-Next?  
+<=====================================<o>======================================>  
 ```
 Requires Python 3.x and readchar lib.

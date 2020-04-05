@@ -313,7 +313,7 @@ class PointOfView:
         # replace our x location with a '*'
         row_string = self.change_char(row_string, self.current_x * 2, '*')
         map_array[self.current_y] = row_string
-        dungeon_name = 'Dungeon ' + str(self.current_dungeon_id)
+        dungeon_name = 'Level ' + str(self.current_dungeon_id)
         new_map = screen.center_text(dungeon_name, ' ', len(map_array[0])) + '\n'
         for line in map_array:
             new_map += line + '\n'
