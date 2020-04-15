@@ -12,13 +12,13 @@ def enter_the_temple(our_hero):
 
     while not is_leaving_temple:
         right_pane = draw_healing_list(our_hero)
-        screen.paint(
+        screen.paint(screen.State(
             common.get_stats(None, our_hero),
             temple_commands,
             message,
             left_pane,
             right_pane
-        )
+        ))
         next_move = input("Next? ")
         if next_move.lower() == "f":
             if our_hero.hit_points != our_hero.max_hit_points:  # Make sure we need healing

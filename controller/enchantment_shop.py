@@ -17,16 +17,15 @@ def enter_the_shop(our_hero):
     left_pane = images.shop
     right_pane = draw_purchase_list()
     commands_pane = commands
-    item = None
 
     while not is_leaving_the_shop:
-        screen.paint(
+        screen.paint(screen.State(
             common.get_stats(None, our_hero),
             commands_pane,
             message,
             left_pane,
             right_pane
-        )
+        ))
         next_move = input("Next? ")
         if next_move.lower() == 'l':
             is_leaving_the_shop = True
@@ -54,13 +53,13 @@ def sell_items(our_hero):
     commands_pane = "Enter a (#) to sell an item, or go (L)eave."
 
     while not is_done_selling:
-        screen.paint(
+        screen.paint(screen.State(
             common.get_stats(None, our_hero),
             commands_pane,
             message,
             left_pane,
             draw_sell_list(our_hero)
-        )
+        ))
         next_move = input("Next? ")
         if next_move.lower() == 'l':
             is_done_selling = True

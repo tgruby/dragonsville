@@ -19,12 +19,12 @@ def walk_through_the_town(our_hero):
         common.save_hero(our_hero)
 
         right_pane = common.list_inventory(our_hero)
-        screen.paint(
+        screen.paint(screen.State(
             common.get_stats(None, our_hero),
             town_commands,
             town_message,
             left_pane,
-            right_pane
+            right_pane)
         )
         next_move = input("Next? ")
         # Visit the Shop to buy stuff

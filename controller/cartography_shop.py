@@ -14,13 +14,13 @@ def enter_the_map_shop(our_hero):
     right_pane = draw_map_list()
 
     while not is_leaving_the_shop:
-        screen.paint(
+        screen.paint(screen.State(
             common.get_stats(None, our_hero),
             commands,
             message,
             left_pane,
             right_pane
-        )
+        ))
         next_move = input("Next? ")
         if next_move.lower() == 'l':
             is_leaving_the_shop = True

@@ -8,26 +8,37 @@ right_pane_width = 49
 center_pane_height = 20
 
 
+# Class object to represent any active monster
+class State:
+    # Constructor
+    def __init__(self, stats, commands, messages, left_pane, right_pane):
+        self.stats = stats
+        self.commands = commands
+        self.messages = messages
+        self.left_pane = left_pane
+        self.right_pane = right_pane
+
+
 # Function to draw the screen given all the panel inputs
-def paint(stats, commands, messages, left_pane_content, right_pane_content):
+def paint(screen_state):
     common.clear_screen()
     print(border("Stats"))
     # Stats
-    print(v_border + center_text(stats, ' ', 78) + v_border)
+    print(v_border + center_text(screen_state.stats, ' ', 78) + v_border)
     print(h_border)
-    lines = create_center_pane(left_pane_content, right_pane_content)
+    lines = create_center_pane(screen_state.left_pane, screen_state.right_pane)
     for line in lines:
         print(line)
     print(border("Messages"))
     # protect against too long of messages
     wrapper = textwrap.TextWrapper(width=75)
-    word_list = wrapper.wrap(text=messages)
+    word_list = wrapper.wrap(text=screen_state.messages)
     # Print each line.
     for element in word_list:
         print(v_border + '  ' + common.back_padding(element, 76) + v_border)
     print(border("Commands"))
     # Commands
-    print(v_border + center_text(commands, ' ', 78) + v_border)
+    print(v_border + center_text(screen_state.commands, ' ', 78) + v_border)
     print(h_border)
 
 

@@ -15,13 +15,13 @@ def look_at_inventory(our_hero):
     right_pane = common.list_inventory(our_hero)
 
     while not is_done:
-        screen.paint(
+        screen.paint(screen.State(
             common.get_stats(None, our_hero),
             commands,
             message,
             left_pane,
             right_pane
-        )
+        ))
         next_move = input("Next? ")
         if next_move.lower() == 'c':
             is_done = True

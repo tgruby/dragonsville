@@ -28,15 +28,15 @@ def enter_the_dungeon(our_hero):
             if has_map(our_hero, view.current_dungeon_id):
                 right_pane = view.current_dungeon_map
             else:
-                right_pane = "You have no map for Dungeon " + str(view.current_dungeon_id)
+                right_pane = "You have no map for Level " + str(view.current_dungeon_id)
 
-        screen.paint(
+        screen.paint(screen.State(
             common.get_stats(view, our_hero),
             move_commands,
             message,
             left_pane,
             right_pane
-        )
+        ))
         next_move = readchar.readkey()
         # Turn Left
         if next_move.lower() == "a":
@@ -96,11 +96,11 @@ def check_for_treasure_callback(our_hero, view):
             message += " You find a %s in the chest!" % weapon["name"]
         commands = "Press Enter to continue..."
         # Attack is finished, paint results screen and pause
-        screen.paint(
+        screen.paint(screen.State(
             common.get_stats(view, our_hero),
             commands,
             message,
             view.generate_perspective(),
             images.treasure_chest
-        )
+        ))
         input("")
